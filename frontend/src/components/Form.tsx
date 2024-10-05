@@ -11,8 +11,8 @@ export default function Form({ open, close }: ModalProps) {
     // Track Transaction Type (Default set to Expense)
     const [categoryType, setCategoryType] = useState("expense");
 
-    // Track The Amount (Default set to 0)
-    const [amount, setAmount] = useState<number>(0);
+    // Track The Amount
+    const [amount, setAmount] = useState<number>();
 
     async function handleSubmit(event: React.FormEvent) {
         event.preventDefault()
