@@ -62,7 +62,7 @@ export default function Form({ open, close }: ModalProps) {
                                 </label>
                             </div>
 
-                            <Button fullWidth type="submit" variant="contained" sx={{ mt: 2 }} className="rounded-xl">Save</Button>
+                            <Button fullWidth type="submit" variant="contained" sx={{ mt: 2 }} className="rounded-xl">Create</Button>
                         </form>
                     </Box>
                 </Modal>

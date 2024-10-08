@@ -3,4 +3,8 @@ interface ModalProps {
     close: () => void;
 }
 
-export type { ModalProps }
+interface TransactionsDataset {
+    sampleTransactions: string[],
+}
+
+export type { ModalProps, TransactionsDataset }
