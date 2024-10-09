@@ -1,25 +1,41 @@
-import NewForm from "./Form";
-import { useState } from 'react';
+import React from 'react';
 import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 import EditIcon from '@mui/icons-material/Edit';
-import { CardContent, Tooltip } from "@mui/material";
-import { TransactionsDataset } from "../Interfaces/interface";
+import Tooltip from '@mui/material/Tooltip';
+import NewForm from './Form'; 
 
-export default function Transactions() {
-    // Manage Closing & Opening of Modal
-    const [modalOpen, setModalOpen] = useState(false);
+interface Transaction {
+    id: number;
+    text: string;
+    color: string;
+}
 
-    // Modal Functions
-    const handleOpen = () => setModalOpen(true);
-    const handleClose = () => setModalOpen(false);
-
-    const sampleTransactions: TransactionsDataset = {
-        sampleTransactions: [
-            "Rent Payment",
-            "Grocery Shopping",
-            "Public Transport Fare"
-        ]
+const withRandomColor = (WrappedComponent: React.ComponentType<{ transactions: Transaction[] }>) => {
+    const generateRandomColor = (): string => {
+        const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+        return randomColor;
     };
+
+    return (props: { transactions: Transaction[] }) => {
+        const transactionsWithColor = React.useMemo(() =>
+            props.transactions.map((transaction) => ({
+                ...transaction,
+                color: transaction.color || generateRandomColor(),
+            })),
+            [props.transactions]
+        );
+
+        return <WrappedComponent transactions={transactionsWithColor} />;
+    };
+};
+
+const Transactions = ({ transactions, handleOpen, handleClose }: {
+    transactions: Transaction[],
+    handleOpen: () => void,
+    handleClose: () => void,
+}) => {
+    const [modalOpen, setModalOpen] = React.useState(false);
 
     return (
         <>
@@ -42,13 +58,11 @@ export default function Transactions() {
             <div className="ml-10">
                 <h4 className="text-2xl font-serif mt-4">History</h4>
                 <ul>
-                    {sampleTransactions.sampleTransactions.map((transaction: string, index: number) => (
-                        <li key={index}>
-                            <Card sx={{ minWidth: 275, marginBottom: 2 }}>
+                    {transactions.map((transaction) => (
+                        <li key={transaction.id}>
+                            <Card sx={{ marginBottom: 1, backgroundColor: transaction.color }}>
                                 <CardContent>
-                                    <div className="text-lg">
-                                        {index + 1}. {transaction}
-                                    </div>
+                                    <div className="text-lg">{transaction.text}</div>
                                     <div className="flex justify-end">
                                         <Tooltip title={"Edit"}>
                                             <EditIcon sx={{ color: 'forestgreen' }} />
@@ -62,4 +76,6 @@ export default function Transactions() {
             </div>
         </>
     );
-}
+};
+
+export default React.memo(withRandomColor(Transactions));
