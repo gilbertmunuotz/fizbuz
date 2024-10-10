@@ -1,6 +1,5 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
-
 // Sample data
 const data = [
     { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
@@ -28,9 +27,6 @@ export default function Chart() {
                         <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
                     </LineChart>
                 </ResponsiveContainer>
-                {/* <div className="text-center text-3xl text-emerald-300"> 
-                    <h4>Total</h4>
-                </div> */}
             </>
         </div>
     )
