@@ -1,0 +1,40 @@
+{
+  "name": "fizbuz",
+  "version": "0.0.0",
+  "scripts": {
+    "build": "tsc",
+    "dev": "nodemon server.ts"
+  },
+  "nodemonconfig": {
+    "watch": [
+      "src/*"
+    ],
+    "ext": "ts, js, html",
+    "exec": "ts-node -r tsconfig-paths/register server.ts"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "jsonfile": "^6.1.0",
+    "mysql2": "^3.11.3",
+    "process": "^0.11.10",
+    "sequelize": "^6.37.4"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.7",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.5",
+    "eslint": "^9.12.0",
+    "eslint-plugin-n": "^17.11.1",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.8.1"
+  }
+}
