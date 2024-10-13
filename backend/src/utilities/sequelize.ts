@@ -15,4 +15,4 @@ const sequelize = new Sequelize(
 )
 
 //Export Sequelize Configs
-module.exports = sequelize;
+export default sequelize;

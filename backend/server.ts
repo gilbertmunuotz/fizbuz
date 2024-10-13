@@ -1,6 +1,7 @@
 // *** Import npm packages *** //
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from "cors";
 // Load env variables
 dotenv.config();
 import { Request, Response, NextFunction } from "express";
@@ -24,7 +25,8 @@ app.get('/api', (req: Request, res: Response, next: NextFunction) => {
 // **** Setup **** //
 
 // Basic middleware
-
+app.use(express.json());
+app.use(cors());
 
 // Listen to Server Response
 const port = process.env.PORT
@@ -34,4 +36,4 @@ app.listen(port, () => {
 
 
 // **** Export default **** //
-module.exports = app;
+export default app;
