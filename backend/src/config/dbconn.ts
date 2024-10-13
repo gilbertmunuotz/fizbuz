@@ -15,4 +15,4 @@ const pool = MySQL.createPool({
 });
 
 // Export the connection pool object for usage
-module.exports = pool;
+export default { pool };
