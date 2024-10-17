@@ -6,5 +6,9 @@ import { Router } from "express";
 //Initiate Express Router
 const router = Router();
 
+/* POST New Transaction */
+router.post('/new');
 
-router.post('/transact', );
+
+// **** Export default **** //
+export default router;
