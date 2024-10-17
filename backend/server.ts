@@ -6,6 +6,7 @@ import cors from "cors";
 dotenv.config();
 import { Request, Response, NextFunction } from "express";
 import HttpStatusCodes from "./src/constants/HttpStatusCodes";
+import TransactionRoute from './src/routes/Transcation';
 
 // Initiate Express
 const app = express();
@@ -27,6 +28,11 @@ app.get('/api', (req: Request, res: Response, next: NextFunction) => {
 // Basic middleware
 app.use(express.json());
 app.use(cors());
+
+
+
+//Define Routes Here
+app.use('/api/v1/transaction', TransactionRoute); // Transactions Related Routes
 
 // Listen to Server Response
 const port = process.env.PORT
