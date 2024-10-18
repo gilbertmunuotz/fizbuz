@@ -5,14 +5,14 @@ import HttpStatusCodes from "../constants/HttpStatusCodes";
 
 
 //(DESC) Create New Note
-async function createTransaction(req: Request, res: Response, next: NextFunction) {
+async function createTransaction(req: Request<any>, res: Response, next: NextFunction) {
 
     // Destructure Request Body and explicitly type it
     const { transaction, amount, categoryType } = req.body;
 
     try {
 
-        
+
 
 
     } catch (error) {
@@ -21,3 +21,5 @@ async function createTransaction(req: Request, res: Response, next: NextFunction
         next(error);
     }
 }
+
+export { createTransaction };
