@@ -2,26 +2,28 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../utilities/sequelize";
 
-
 // **** Functions **** //
-const transaction = sequelize.define('transactions', {
+// Define the model
+const Transaction = sequelize.define('transactions', {
   name: {
     type: DataTypes.STRING,
     allowNull: false
   },
   amount: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.FLOAT,
     allowNull: false
   },
   type: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.STRING,
     allowNull: false
-  },
+  }
+},
 
-  createdAt: DataTypes.DATE,
-  updatedAt: DataTypes.DATE,
-});
+  // Sequelize will automatically manage createdAt and updatedAt
+  { timestamps: true }
+
+);
 
 
 // **** Export default **** //
-export default {transaction};
+export default Transaction;
