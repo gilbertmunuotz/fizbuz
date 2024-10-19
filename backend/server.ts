@@ -8,8 +8,15 @@ import { Request, Response, NextFunction } from "express";
 import HttpStatusCodes from "./src/constants/HttpStatusCodes";
 import TransactionRoute from './src/routes/Transcation';
 
+
+// **** Setup **** //
+
 // Initiate Express
 const app = express();
+
+// Basic middleware
+app.use(express.json());
+app.use(cors());
 
 
 //Test Sample Route
@@ -23,19 +30,13 @@ app.get('/api', (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-// **** Setup **** //
-
-// Basic middleware
-app.use(express.json());
-app.use(cors());
-
-
 
 //Define Routes Here
 app.use('/api/v1/transaction', TransactionRoute); // Transactions Related Routes
 
+
 // Listen to Server Response
-const port = process.env.PORT
+const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server Listening on Port ${port}`);
 });
