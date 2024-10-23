@@ -3,7 +3,7 @@ import { SERVER_API } from "../config/constant";
 
 // Define a base query for RTK Query
 const baseQuery = fetchBaseQuery({
-    baseUrl: `${SERVER_API}/api/notes`
+    baseUrl: `${SERVER_API}/v1/transaction`
 });
 
 // Create an API slice
