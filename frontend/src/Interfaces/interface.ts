@@ -7,4 +7,10 @@ interface TransactionsDataset {
     sampleTransactions: string[],
 }
 
-export type { ModalProps, TransactionsDataset }
+interface Transaction {
+    name: string,
+    amount: string,
+    type: string
+}
+
+export type { ModalProps, TransactionsDataset, Transaction }
