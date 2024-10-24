@@ -3,16 +3,16 @@ import HttpStatusCodes from "../constants/HttpStatusCodes";
 import TransactionModel from "../models/Transactions";
 
 
-//(DESC) Create New Note
+//(DESC) Create New Transaction
 async function createTransaction(req: Request, res: Response, next: NextFunction): Promise<void> {
 
     // Destructure Request Body and explicitly type it
-    const { name, amount, type } = req.body;
+    const { name, amount, type, userId } = req.body;
 
     try {
 
         // Create new Transaction using only the required fields
-        const Transaction = await TransactionModel.create({ name, amount, type });
+        const Transaction = await TransactionModel.create({ name, amount, type , userId});
         res.status(HttpStatusCodes.CREATED).send({ status: 'Success', message: 'Trasaction Created Succesfully', Transaction });
 
     } catch (error) {
@@ -26,6 +26,12 @@ async function createTransaction(req: Request, res: Response, next: NextFunction
         });
         next(error);
     }
+}
+
+
+//(DESC) Get All Transaction 
+async function getAllTransactions(req: Request, res: Response, next: NextFunction) {
+
 }
 
 export { createTransaction };

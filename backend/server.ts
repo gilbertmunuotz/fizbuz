@@ -5,8 +5,8 @@ import cors from "cors";
 // Load env variables
 dotenv.config();
 import { Request, Response, NextFunction } from "express";
-import HttpStatusCodes from "./src/constants/HttpStatusCodes";
-import TransactionRoute from './src/routes/Transcation';
+import HttpStatusCodes from "./constants/HttpStatusCodes";
+import TransactionRoute from './routes/Transcation';
 
 
 // **** Setup **** //

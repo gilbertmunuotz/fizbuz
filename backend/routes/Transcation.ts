@@ -11,5 +11,9 @@ const router = Router();
 router.post('/new', TransactionMiddleware, createTransaction);
 
 
+/* GET All Transactions */
+router.get('/transactions');
+
+
 // **** Export default **** //
 export default router;
