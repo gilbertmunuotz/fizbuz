@@ -1,6 +1,7 @@
 // *** Import NPM Packages *** //
 import { DataTypes } from "sequelize";
 import sequelize from "../utilities/sequelize";
+import User from './User';
 
 // **** Functions **** //
 // Define the model
@@ -16,6 +17,14 @@ const Transaction = sequelize.define('transactions', {
   type: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'users', // refers to table name 'users'
+      key: 'id'
+    }
   }
 },
 
@@ -23,6 +32,10 @@ const Transaction = sequelize.define('transactions', {
   { timestamps: true }
 
 );
+
+// Define the relationship (A user can have many transactions)
+User.hasMany(Transaction, { foreignKey: 'userId' });
+Transaction.belongsTo(User, { foreignKey: 'userId' });
 
 
 // **** Export default **** //
