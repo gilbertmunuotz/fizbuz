@@ -7,6 +7,8 @@ dotenv.config();
 import { Request, Response, NextFunction } from "express";
 import HttpStatusCodes from "./constants/HttpStatusCodes";
 import TransactionRoute from './routes/Transcation';
+import AuthRoutes from './routes/Auth';
+import { expressSessions } from "./middlewares/Sessions";
 
 
 // **** Setup **** //
@@ -17,7 +19,7 @@ const app = express();
 // Basic middleware
 app.use(express.json());
 app.use(cors());
-
+app.use(expressSessions());
 
 //Test Sample Route
 app.get('/api', (req: Request, res: Response, next: NextFunction) => {
@@ -33,7 +35,7 @@ app.get('/api', (req: Request, res: Response, next: NextFunction) => {
 
 //Define Routes Here
 app.use('/api/v1/transaction', TransactionRoute); // Transactions Related Routes
-
+app.use('/api/v1/auth', AuthRoutes); // Authentication Related Routes
 
 // Listen to Server Response
 const port = process.env.PORT;
