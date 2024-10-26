@@ -2,16 +2,15 @@ import { Request, Response, NextFunction } from 'express';
 import Joi from "joi";
 import HttpStatusCodes from "../constants/HttpStatusCodes";
 
-export function TransactionMiddleware(req: Request, res: Response, next: NextFunction): void {
+export function LoginMiddleware(req: Request, res: Response, next: NextFunction): void {
     // Define Validation Schema
-    const transactionSchema = Joi.object().keys({
+    const loginSchema = Joi.object().keys({
         name: Joi.string().required(),
-        amount: Joi.number().required(),
-        type: Joi.string().required(),
+        password: Joi.string().required(),
     }).options({ abortEarly: false });
 
     // Perform Validation
-    const { error } = transactionSchema.validate(req.body);
+    const { error } = loginSchema.validate(req.body);
 
     //Check If Validation succeeded
     if (error) {
