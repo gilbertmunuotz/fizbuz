@@ -17,6 +17,14 @@ const User = sequelize.define('users', {
     password: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    otp: {
+        type: DataTypes.STRING(6),
+        allowNull: true
+    },
+    otpExpiresAt: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
 },
 
