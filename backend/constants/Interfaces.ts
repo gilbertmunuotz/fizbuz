@@ -1,7 +1,7 @@
 // Define Interfaces Here
 
 export interface User {
-    name: string,
+    name?: string,
     email: string,
     password: string,
     otp?: string,

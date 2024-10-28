@@ -1,13 +1,19 @@
 import { Request, Response, NextFunction } from "express";
 import HttpStatusCodes from "../constants/HttpStatusCodes";
-import UserModel from '../models/User';
+import UserModel, { UserAttributes } from '../models/User';
 import bcrypt from "bcrypt";
-import { User } from "../constants/Interfaces";
+import { User } from '../constants/Interfaces';
+
+// Extend the Express.Session interface
+declare module 'express-session' {
+    interface Session {
+        userId?: string;
+    }
+}
 
 //(DESC) Create New User
 async function createUser(req: Request, res: Response, next: NextFunction): Promise<void> {
 
-    
     // Destructure Request Body and explicitly type it
     const { name, email, password }: User = req.body;
 
@@ -39,7 +45,44 @@ async function createUser(req: Request, res: Response, next: NextFunction): Prom
 
 // (DESC) Login User
 async function loginUser(req: Request, res: Response, next: NextFunction): Promise<void> {
+    // Destructure req.body and Explicitly Type
+    const { email, password }: UserAttributes = req.body;
 
+    try {
+        // Find if Existing User Exists
+        const user = await UserModel.findOne({ where: { email } });
+
+        // If Not found(404)
+        if (!user) {
+            res.status(HttpStatusCodes.NOT_FOUND).json({ status: 'Error', message: 'User Not Found' });
+            return;
+        }
+
+        // Compare user Password & hash it
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        // If Password is Not Valid
+        if (!isPasswordValid) {
+            res.status(HttpStatusCodes.UNAUTHORIZED).json({ status: 'Error', message: 'Invalid Email or Password' });
+            return;
+        }
+
+        // Store user Id in session safely
+        req.session.userId = user.id.toString(); // Convert user ID to a string
+
+        // Call save on the session
+        req.session.save((err) => {
+            if (err) {
+                return next(err); // Handle session save error
+            }
+            res.status(HttpStatusCodes.OK).json({ status: 'Success', message: 'Logged in successfully' });
+        });
+
+    } catch (error) {
+        console.error("Error Logging In", error);
+        res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
+        next(error);
+    }
 }
 
 
