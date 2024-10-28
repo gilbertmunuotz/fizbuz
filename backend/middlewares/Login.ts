@@ -5,7 +5,7 @@ import HttpStatusCodes from "../constants/HttpStatusCodes";
 export function LoginMiddleware(req: Request, res: Response, next: NextFunction): void {
     // Define Validation Schema
     const loginSchema = Joi.object().keys({
-        name: Joi.string().required(),
+        email: Joi.string().required(),
         password: Joi.string().required(),
     }).options({ abortEarly: false });
 
