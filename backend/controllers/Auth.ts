@@ -71,9 +71,9 @@ async function loginUser(req: Request, res: Response, next: NextFunction): Promi
         req.session.userId = user.id.toString(); // Convert user ID to a string
 
         // Call save on the session
-        req.session.save((err) => {
-            if (err) {
-                return next(err); // Handle session save error
+        req.session.save((error) => {
+            if (error) {
+                return next(error); // Handle session save error
             }
             res.status(HttpStatusCodes.OK).json({ status: 'Success', message: 'Logged in successfully' });
         });
@@ -89,6 +89,16 @@ async function loginUser(req: Request, res: Response, next: NextFunction): Promi
 // (DESC) Logout User
 async function logoutUser(req: Request, res: Response, next: NextFunction) {
 
+    // Destroy user Sessions
+    req.session.destroy((error => {
+        if (error) {
+            console.error('Error destroying session:', error);
+            return res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({ status: "Error", Message: "Error logging out" });
+        }
+
+        // Clear the session cookie
+        res.status(HttpStatusCodes.OK).json({ status: "Success", Message: "Logout successfully" });
+    }))
 }
 
 
