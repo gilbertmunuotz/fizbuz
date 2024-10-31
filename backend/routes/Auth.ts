@@ -2,7 +2,7 @@
 import { Router } from "express";
 import { LoginMiddleware } from '../middlewares/Login';
 import { RegistrationMiddleware } from '../middlewares/Register';
-import { createUser, loginUser, logoutUser, isAuth } from '../controllers/Auth';
+import { createUser, loginUser, logoutUser } from '../controllers/Auth';
 
 
 // **** Functions **** //
@@ -20,10 +20,6 @@ router.post('/login', LoginMiddleware, loginUser);
 
 /* Logout Route */
 router.delete('/logout', logoutUser);
-
-
-/* (GET) Check if User Is Authenticated */
-router.get('/isAuth', isAuth);
 
 
 // **** Export default **** //

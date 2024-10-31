@@ -7,12 +7,18 @@ import TransactionModel from "../models/Transactions";
 async function createTransaction(req: Request, res: Response, next: NextFunction): Promise<void> {
 
     // Destructure Request Body and explicitly type it
-    const { name, amount, type, userId } = req.body;
+    const { name, amount, type } = req.body;
+    const userId = req.session.userId; // Get userId from session
+
+    if (!userId) {
+        res.status(HttpStatusCodes.UNAUTHORIZED).json({ status: "Error", Message: "User not Authenticated" });
+        return;
+    }
 
     try {
 
         // Create new Transaction using only the required fields
-        const Transaction = await TransactionModel.create({ name, amount, type , userId});
+        const Transaction = await TransactionModel.create({ name, amount, type, userId });
         res.status(HttpStatusCodes.CREATED).send({ status: 'Success', message: 'Trasaction Created Succesfully', Transaction });
 
     } catch (error) {
