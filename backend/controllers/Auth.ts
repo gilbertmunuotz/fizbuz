@@ -97,15 +97,10 @@ async function logoutUser(req: Request, res: Response, next: NextFunction) {
         }
 
         // Clear the session cookie
+        res.clearCookie('connect.sid', { path: '/' });
         res.status(HttpStatusCodes.OK).json({ status: "Success", Message: "Logout successfully" });
     }))
 }
 
 
-// (DESC) Check if User Is Authenticated
-async function isAuth(req: Request, res: Response, next: NextFunction) {
-
-}
-
-
-export { createUser, loginUser, logoutUser, isAuth };
+export { createUser, loginUser, logoutUser };
