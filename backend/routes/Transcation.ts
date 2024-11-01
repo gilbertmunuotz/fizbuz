@@ -1,8 +1,8 @@
 // *** Import Router & Controller Func *** //
 import { Router } from "express";
-import { transactionMiddleware } from '../middlewares/Transaction';
-import { createTransaction } from '../controllers/Transcation';
 import { authMiddleware } from "../middlewares/Auth";
+import { transactionMiddleware } from '../middlewares/Transaction';
+import { createTransaction, getTransaction } from '../controllers/Transcation';
 
 // **** Functions **** //
 //Initiate Express Router
@@ -13,7 +13,7 @@ router.post('/new', authMiddleware, transactionMiddleware, createTransaction);
 
 
 /* GET All Transactions */
-router.get('/transactions');
+router.get('/transaction', authMiddleware, getTransaction);
 
 
 // **** Export default **** //

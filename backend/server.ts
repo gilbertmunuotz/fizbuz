@@ -34,7 +34,7 @@ app.get('/api', (req: Request, res: Response, next: NextFunction) => {
 
 
 //Define Routes Here
-app.use('/api/v1/transaction', TransactionRoute); // Transactions Related Routes
+app.use('/api/v1/transactions', TransactionRoute); // Transactions Related Routes
 app.use('/api/v1/auth', AuthRoutes); // Authentication Related Routes
 
 // Listen to Server Response
