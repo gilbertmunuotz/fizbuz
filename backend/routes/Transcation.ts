@@ -2,18 +2,26 @@
 import { Router } from "express";
 import { authMiddleware } from "../middlewares/Auth";
 import { transactionMiddleware } from '../middlewares/Transaction';
-import { createTransaction, getTransaction } from '../controllers/Transcation';
+import { createTransaction, getTransactions, getTransaction, deleteTransaction } from '../controllers/Transcation';
 
 // **** Functions **** //
 //Initiate Express Router
 const router = Router();
 
 /* POST New Transaction */
-router.post('/new', authMiddleware, transactionMiddleware, createTransaction);
+router.post("/new", authMiddleware, transactionMiddleware, createTransaction);
 
 
 /* GET All Transactions */
-router.get('/transaction', authMiddleware, getTransaction);
+router.get("/transactions", authMiddleware, getTransactions);
+
+
+/* GET Single Transaction */
+router.get("/transaction/:id", authMiddleware, getTransaction);
+
+
+/* DELETE Single Transaction */
+router.delete("/transaction/delete/:id", authMiddleware, deleteTransaction);
 
 
 // **** Export default **** //
