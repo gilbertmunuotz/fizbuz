@@ -12,7 +12,21 @@ export const transactionAPISlice = createApi({
     tagTypes: ['Transaction'],
     baseQuery,
     endpoints: (build) => ({
-        addNewTransaction: build.mutation({
+
+        // First paramater Represents the Expected Return Data Type
+        // Second parameter Represents the Passed Data Type
+
+        // Get All Transactions Based on userId
+        getTransaction: build.query({
+            query: () => ({
+                url: '/transactions',
+                method: 'GET',
+            }),
+            providesTags: ['Transaction']
+        }),
+
+        // Post New Transaction
+        addTransaction: build.mutation({
             query: (transaction) => ({
                 url: '/new',
                 method: 'POST',
@@ -20,10 +34,20 @@ export const transactionAPISlice = createApi({
             }),
             // Invalidate the Transaction tag to refetch relevant data
             invalidatesTags: ['Transaction'],
-        })
+        }),
+
+        // Delete Transaction Based on userId
+        deleteTransaction: build.mutation<void, number>({
+            query: (_id) => ({
+                url: `/transaction/delete/${_id}`,
+                method: 'DELETE',
+            })
+        }),
+
+
     })
 });
 
 
 // Export hooks for usage in functional components
-export const { useAddNewTransactionMutation } = transactionAPISlice;
+export const { useAddTransactionMutation, useGetTransactionQuery, useDeleteTransactionMutation } = transactionAPISlice;

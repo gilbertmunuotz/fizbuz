@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import React, { useState } from "react";
 import { ModalProps, Transaction } from "../Interfaces/interface";
-import { useAddNewTransactionMutation } from "../api/TransactionSlice";
+import { useAddTransactionMutation } from "../api/TransactionSlice";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 
 export default function Form({ open, close }: ModalProps) {
@@ -12,7 +12,7 @@ export default function Form({ open, close }: ModalProps) {
     const [amount, setAmount] = useState<string>('');  // Track The Amount
 
     // Destructure Hook
-    const [addNewTransaction, { isError, isLoading }] = useAddNewTransactionMutation();
+    const [addNewTransaction, { isError, isLoading }] = useAddTransactionMutation();
 
     // Handle Data Submission
     async function handleSubmit(event: React.FormEvent) {
