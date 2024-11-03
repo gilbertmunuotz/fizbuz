@@ -1,11 +1,17 @@
-import Chart from "./components/Chart";
-import TopNav from "./components/TopNav";
+import Home from './pages/Home';
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import 'react-toastify/dist/ReactToastify.css';
-import Transactions from "./components/Transactions";
 import { Slide, ToastContainer } from "react-toastify";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+const router = createBrowserRouter([
+  { path: "/", element: <Home />, },
+  { path: "/login", element: <Login />, },
+  { path: "/register", element: <Register />, },
+]);
 
-function App() {
+export default function App() {
   return (
     <>
       <ToastContainer
@@ -21,19 +27,7 @@ function App() {
         theme="light"
         transition={Slide}
       />
-      <div className="mx-6">
-        <TopNav />
-        <div className="flex flex-col md:flex-row">
-          <div className="w-full md:w-1/2">
-            <Chart />
-          </div>
-          <div className="w-full md:w-1/2">
-            <Transactions />
-          </div>
-        </div>
-      </div>
+      <RouterProvider router={router} />
     </>
-  )
+  );
 }
-
-export default App;

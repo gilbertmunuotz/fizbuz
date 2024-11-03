@@ -6,6 +6,7 @@ import { CardContent } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { TransactionsDataset } from '../Interfaces/interface';
 
+
 export default function Transactions() {
 
     // Manage Closing & Opening of Modal
@@ -23,6 +24,8 @@ export default function Transactions() {
             "Public Transport Fare"
         ]
     };
+
+      // Destructure Hook
 
     return (
         <div>
