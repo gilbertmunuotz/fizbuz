@@ -6,12 +6,16 @@ export default function Home() {
     return (
         <>
             <TopNav />
-            <div className="mx-6">
-                <div className="flex flex-col md:flex-row">
-                    <div className="w-full md:w-1/2">
+            {/* Add responsive padding to the main content to offset the DrawerNav on larger screens */}
+            <div className="lg:ml-64 mx-6 my-4"> {/* lg:ml-64 shifts the main content to the right on large screens */}
+                {/* Responsive container */}
+                <div className="flex flex-col lg:flex-row gap-4">
+                    {/* Chart component, full width on mobile, half on larger screens */}
+                    <div className="w-full lg:w-1/2">
                         <Chart />
                     </div>
-                    <div className="w-full md:w-1/2">
+                    {/* Transactions component, full width on mobile, half on larger screens */}
+                    <div className="w-full lg:w-1/2">
                         <Transactions />
                     </div>
                 </div>

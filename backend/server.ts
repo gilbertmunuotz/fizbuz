@@ -9,6 +9,7 @@ import HttpStatusCodes from "./constants/HttpStatusCodes";
 import TransactionRoute from './routes/Transcation';
 import AuthRoutes from './routes/Auth';
 import { expressSessions } from "./middlewares/Sessions";
+import { USERS_URL } from "./constants/Constant";
 
 
 // **** Setup **** //
@@ -18,7 +19,7 @@ const app = express();
 
 // Basic middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: `${USERS_URL}`, methods: ["GET", "PUT", "POST", "DELETE"], credentials: true }));
 app.use(expressSessions());
 
 //Test Sample Route

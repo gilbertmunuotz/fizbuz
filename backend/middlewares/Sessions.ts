@@ -14,6 +14,7 @@ export function expressSessions() {
             secure: process.env.NODE_ENV === 'production',
             maxAge: 30 * 60 * 1000, // Set cookie expiration to 30 minutes
             httpOnly: true,
+            sameSite: 'none',
         }
     });
 }

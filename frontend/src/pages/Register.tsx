@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Credentials } from "../Interfaces/interface";
 import { useRegisterMutation } from "../api/AuthSlice";
 
@@ -11,8 +11,11 @@ export default function Register() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
-    // Destructure Hook
-    const [register, { isError, isLoading }] = useRegisterMutation();
+    // Destructure rtk Hook
+    const [register, { isLoading }] = useRegisterMutation();
+
+    // Destructure React Router Dom Hook
+    const navigate = useNavigate();
 
     // Handle Form Submission
     async function HandleSubmit(event: React.FormEvent) {
@@ -21,14 +24,23 @@ export default function Register() {
         const user: Credentials = { name, email, password };
 
         try {
-            await register(user).unwrap()
-        } catch (error) {
+            await register(user).unwrap();
+            setName('');
+            setEmail('');
+            setPassword('');
+            toast.success("Registered Successfully");
+            navigate("/login");
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
             console.error("Error During Registration", error);
-            toast.error("Error During Sign Up.!");
-        }
+            if (error?.data?.message) {
+                toast.error(error.data.message);
+            } else if (error) {
+                toast.error("Error During Sign Up.!");
+            } else {
+                toast.error("Sorry, an error occurred.");
+            }
 
-        if (isError) {
-            toast.error("Sorry, an error occurred.")
         }
     }
 
@@ -36,7 +48,7 @@ export default function Register() {
         <div>
             <div className="min-h-screen flex justify-center items-center bg-gray-100">
                 <div className="bg-white rounded-lg shadow-md p-8 w-full max-w-lg">
-                    <h1 className="text-3xl font-bold text-center mb-6">Happy To Join Us.</h1>
+                    <h1 className="text-3xl font-bold text-center mb-6">Sign Up.</h1>
 
                     <form className="space-y-5" onSubmit={HandleSubmit}>
 
@@ -104,7 +116,7 @@ export default function Register() {
                                 Signing Up....
                             </button>
                             :
-                            <button type="submit" className="w-full px-4 py-2 bg-sky-600 text-white rounded-md hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:opacity-50">Sign Up</button>
+                            <button type="submit" className="w-full px-4 py-2 bg-sky-600 text-white rounded-md hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500">Sign Up</button>
                         }
 
                         <hr className="border-y border-black" />
