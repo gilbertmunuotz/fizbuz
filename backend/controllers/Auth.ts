@@ -54,7 +54,7 @@ async function loginUser(req: Request, res: Response, next: NextFunction): Promi
 
         // If Not found(404)
         if (!user) {
-            res.status(HttpStatusCodes.NOT_FOUND).json({ status: 'Error', message: 'User Not Found' });
+            res.status(HttpStatusCodes.NOT_FOUND).json({ status: 'Error', message: 'User Not Found.!' });
             return;
         }
 
@@ -63,7 +63,7 @@ async function loginUser(req: Request, res: Response, next: NextFunction): Promi
 
         // If Password is Not Valid
         if (!isPasswordValid) {
-            res.status(HttpStatusCodes.UNAUTHORIZED).json({ status: 'Error', message: 'Invalid Email or Password' });
+            res.status(HttpStatusCodes.UNAUTHORIZED).json({ status: 'Error', message: 'Invalid Email or Password.!' });
             return;
         }
 

@@ -19,5 +19,10 @@ interface Credentials {
     password: string
 }
 
+interface UserInfo {
+    email: string,
+    password: string
+}
 
-export type { ModalProps, TransactionsDataset, Transaction, Credentials };
+
+export type { ModalProps, TransactionsDataset, Transaction, Credentials, UserInfo };
