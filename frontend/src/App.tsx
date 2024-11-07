@@ -1,12 +1,14 @@
 import Home from './pages/Home';
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import NotFound from './components/NotFound';
 import 'react-toastify/dist/ReactToastify.css';
 import { Slide, ToastContainer } from "react-toastify";
+import { PrivateRoute } from './components/PrivateRoute';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
-  { path: "/", element: <Home />, },
+  { path: "/", element: (<PrivateRoute><Home />,</PrivateRoute>), errorElement: <NotFound /> },
   { path: "/login", element: <Login />, },
   { path: "/register", element: <Register />, },
 ]);

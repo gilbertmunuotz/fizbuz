@@ -4,7 +4,7 @@ import { SERVER_API } from "../config/constant";
 // Define a base query for RTK Query
 const baseQuery = fetchBaseQuery({
     baseUrl: `${SERVER_API}/v1/transactions`,
-    credentials: 'include',
+    credentials: 'include', // Ensure cookies are sent
 });
 
 // Create an API slice

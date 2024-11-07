@@ -70,12 +70,12 @@ async function loginUser(req: Request, res: Response, next: NextFunction): Promi
         // Store user Id in session safely
         req.session.userId = user.id.toString(); // Convert user ID to a string
 
-        // Call save on the session
+        // Call save method on the session
         req.session.save((error) => {
             if (error) {
                 return next(error); // Handle session save error
             }
-            res.status(HttpStatusCodes.OK).json({ status: 'Success', message: 'Logged in successfully' });
+            res.status(HttpStatusCodes.OK).json({ status: 'Success', message: 'Logged in successfully', user, sessionID: req.sessionID });
         });
 
     } catch (error) {
