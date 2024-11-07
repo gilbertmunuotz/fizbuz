@@ -3,9 +3,11 @@ interface ModalProps {
     close: () => void;
 }
 
+
 interface TransactionsDataset {
     sampleTransactions: string[],
 }
+
 
 interface Transaction {
     name: string,
@@ -13,11 +15,13 @@ interface Transaction {
     type: string
 }
 
+
 interface Credentials {
     name: string,
     email: string,
     password: string
 }
+
 
 interface UserInfo {
     email: string,
@@ -25,4 +29,24 @@ interface UserInfo {
 }
 
 
-export type { ModalProps, TransactionsDataset, Transaction, Credentials, UserInfo };
+interface AuthState {
+    isUserAuth: boolean,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    user: any,
+    sessionID: string | null,
+}
+
+
+interface AuthResponse {
+    id: number,
+    name: string,
+    email: string,
+    password?: string,
+    otp?: string,
+    otpExpiresAt?: string,
+    createdAt?: string,
+    updatedAt?: string
+}
+
+
+export type { ModalProps, TransactionsDataset, Transaction, Credentials, UserInfo, AuthState, AuthResponse };

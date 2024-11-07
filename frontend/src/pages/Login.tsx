@@ -3,6 +3,9 @@ import { toast } from "react-toastify";
 import { UserInfo } from "../Interfaces/interface";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../api/AuthSlice";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../assets/authSlice";
+
 
 export default function Login() {
 
@@ -16,6 +19,9 @@ export default function Login() {
     // Destructure React Dom Hook
     const navigate = useNavigate();
 
+    // Destructure Redux Hook
+    const dispatch = useDispatch();
+
     // Handle Submit Logic
     async function HandleSubmit(event: React.FormEvent) {
 
@@ -24,7 +30,8 @@ export default function Login() {
         const userInfo: UserInfo = { email, password };
 
         try {
-            await login(userInfo).unwrap();
+            const user = await login(userInfo).unwrap();
+            dispatch(loginSuccess(user));
             setEmail("");
             setPassword("");
             toast.success("Logged In Succesfully");

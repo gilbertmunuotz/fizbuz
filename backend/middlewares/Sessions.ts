@@ -10,6 +10,7 @@ export function expressSessions() {
         resave: false,
         saveUninitialized: false,
         store: sessionStore,
+        rolling: true,
         cookie: {
             secure: process.env.NODE_ENV === 'production',
             maxAge: 30 * 60 * 1000, // Set cookie expiration to 30 minutes

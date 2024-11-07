@@ -5,19 +5,19 @@ import HomeIcon from '@mui/icons-material/Home';
 import PaidIcon from '@mui/icons-material/Paid';
 import CloseIcon from '@mui/icons-material/Close';
 import { Link, useLocation } from 'react-router-dom';
-import SettingsIcon from '@mui/icons-material/Settings';
+import PersonIcon from '@mui/icons-material/Person';
 
 const navItems = [
     { name: "Home", path: "/", icon: <HomeIcon sx={{ color: 'black', fontSize: 30 }} /> },
     { name: "Transactions", path: "/transactions", icon: <PaidIcon sx={{ color: 'black', fontSize: 30 }} /> },
-    { name: "Settings", path: "/settings", icon: <SettingsIcon sx={{ color: 'black', fontSize: 30 }} /> },
+    { name: "Profile", path: "/settings", icon: <PersonIcon sx={{ color: 'black', fontSize: 30 }} /> },
 ];
 
 export default function DrawerNav() {
 
     // Managing Opening & closing of Drawer
     const [isOpen, setIsOpen] = useState(false);
-    const location = useLocation(); 
+    const location = useLocation();
 
     const toggleDrawer = () => setIsOpen(!isOpen);
 
@@ -30,7 +30,7 @@ export default function DrawerNav() {
             >
                 {isOpen ? <CloseIcon /> : <MenuIcon />}
             </button>
-            <div className={`fixed inset-y-0 left-0 transform ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition duration-200 ease-in-out z-30 w-64 bg-white shadow-lg`}>
+            <div className={`fixed inset-y-0 left-0 transform ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition duration-200 ease-in-out z-30 w-64 bg-slate-500 shadow-lg`}>
                 <div className="p-6">
                     <img src={photo} className="rounded-full mt-3 mb-4 cursor-pointer" alt="Profile" />
                     <nav>
@@ -40,8 +40,8 @@ export default function DrawerNav() {
                                     <Link
                                         to={item.path}
                                         className={`flex items-center p-2 rounded-md transition-colors ${location.pathname === item.path
-                                            ? "bg-blue-100 text-blue-700"
-                                            : "text-gray-600 hover:bg-gray-100"
+                                            ? "bg-blue-800 text-white"
+                                            : "text-black"
                                             }`}
                                         onClick={() => setIsOpen(false)}
                                     >
