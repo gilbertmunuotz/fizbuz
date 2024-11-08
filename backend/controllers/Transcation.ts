@@ -5,36 +5,35 @@ import TransactionModel from "../models/Transactions";
 
 //(DESC) Create New Transaction
 async function createTransaction(req: Request, res: Response, next: NextFunction): Promise<void> {
-
     // Destructure Request Body and explicitly type it
-    const { name, amount, type } = req.body;
-
-    // Get userId from session
-    const userId = req.session.userId;
+    const { name, amount, type, userId } = req.body;
 
     if (!userId) {
-        res.status(HttpStatusCodes.UNAUTHORIZED).json({ status: "Error", Message: "User not Authenticated" });
+        // Respond with an error if the user ID is missing
+        res.status(HttpStatusCodes.UNAUTHORIZED).json({ status: "Error", Message: "Invalid User Id" });
         return;
     }
 
     try {
-
-        // Create new Transaction using only the required fields
+        // Attempt to create a new transaction
         const Transaction = await TransactionModel.create({ name, amount, type, userId });
-        res.status(HttpStatusCodes.CREATED).send({ status: 'Success', message: 'Trasaction Created Succesfully', Transaction });
 
+        // Send success response
+        res.status(HttpStatusCodes.CREATED).json({ status: 'Success', message: 'Transaction Created Successfully', Transaction });
+        return; // Immediately return to stop further execution in this function
     } catch (error) {
-        // Log the error and pass it to the next middleware
+        // Handle errors and send error response
         console.error('An Error Occurred, Please Try Again Later', error);
 
-        // Send error response and call next() to pass the error to the error-handling middleware
+        // Send error response and return to prevent further code execution
         res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
-            status: 'error',
+            status: 'Error',
             message: 'An Error Occurred, Please Try Again Later'
         });
-        next(error);
+        return; // Immediately return to stop further execution in this function
     }
 }
+
 
 
 //(DESC) Get All Transactions
@@ -133,7 +132,7 @@ async function deleteTransaction(req: Request, res: Response, next: NextFunction
             res.status(HttpStatusCodes.NOT_FOUND).json({ Status: 'Error', Message: "Transaction Not Found" });
             return;
         }
-        
+
         // If the transaction was deleted successfully
         res.status(HttpStatusCodes.OK).json({ Status: "Success", Message: "Transaction Deleted Successfully" });
 

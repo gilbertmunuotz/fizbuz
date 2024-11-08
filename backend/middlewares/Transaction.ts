@@ -8,6 +8,7 @@ export function transactionMiddleware(req: Request, res: Response, next: NextFun
         name: Joi.string().required(),
         amount: Joi.number().required(),
         type: Joi.string().required(),
+        userId: Joi.number().required()
     }).options({ abortEarly: false });
 
     // Perform Validation
