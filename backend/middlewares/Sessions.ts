@@ -6,15 +6,15 @@ dotenv.config();
 
 export function expressSessions() {
     return session({
+        store: sessionStore,
         secret: process.env.SESSION_SECRET as string, // Ensure SESSION_SECRET is treated as a string
         resave: false,
         saveUninitialized: false,
-        store: sessionStore,
         rolling: true,
         cookie: {
-            secure: process.env.NODE_ENV === 'production',
             maxAge: 30 * 60 * 1000, // Set cookie expiration to 30 minutes
             httpOnly: true,
+            secure: false,
             sameSite: 'none',
         }
     });

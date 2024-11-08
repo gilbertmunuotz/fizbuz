@@ -10,6 +10,7 @@ interface TransactionsDataset {
 
 
 interface Transaction {
+    userId: number,
     name: string,
     amount: string,
     type: string

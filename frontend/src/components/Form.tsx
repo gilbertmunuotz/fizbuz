@@ -1,11 +1,18 @@
 import { toast } from "react-toastify";
 import React, { useState } from "react";
-import { ModalProps, Transaction } from "../Interfaces/interface";
+import { useSelector } from "react-redux";
+import { user } from "../assets/authSlice";
 import { useAddTransactionMutation } from "../api/TransactionSlice";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
+import { AuthResponse, ModalProps, Transaction } from "../Interfaces/interface";
 
 export default function Form({ open, close }: ModalProps) {
 
+    // Extract user Info From Redux Store
+    const userInfo = useSelector(user) as AuthResponse;
+
+    // Extract user ID from user Slice
+    const id = userInfo.id;
 
     const [name, setName] = useState<string>(''); // Track Transaction
     const [type, setType] = useState("expense"); // Track Transaction Type (Default set to Expense)
@@ -18,7 +25,7 @@ export default function Form({ open, close }: ModalProps) {
     async function handleSubmit(event: React.FormEvent) {
         event.preventDefault()
 
-        const newTransaction: Transaction = { name, amount, type };
+        const newTransaction: Transaction = { name, amount, type, userId: id };
 
         try {
             await addNewTransaction(newTransaction).unwrap();
@@ -26,8 +33,6 @@ export default function Form({ open, close }: ModalProps) {
             setType('')
             setAmount('')
             toast.success("Transaction Created Successfully");
-            console.log(newTransaction);
-
         } catch (error) {
             console.error("Error Creating Transaction", error);
             toast.error("Sorry, an error occurred.");

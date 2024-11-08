@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { AuthState } from "../Interfaces/interface";
 import { RootState } from "../library/Store";
+import { AuthState, AuthResponse } from "../Interfaces/interface";
 
 
 // Define Initial State
@@ -20,7 +20,7 @@ const authSlice = createSlice({
             state.user = action.payload.user;
             state.sessionID = action.payload.sessionID;
         },
-        logout: (state) => {
+        logoutSuccess: (state) => {
             state.isUserAuth = false;
             state.user = null;
             state.sessionID = null;
@@ -29,11 +29,12 @@ const authSlice = createSlice({
 })
 
 // Export Action
-export const { loginSuccess, logout } = authSlice.actions;
+export const { loginSuccess, logoutSuccess } = authSlice.actions;
 
 
 // Selector functions to access user information
-export const isAuthenticated = (state: RootState) => state.auth.isUserAuth; // Auth State Selector
+export const isAuthenticated = (state: RootState) => state.auth.isUserAuth; // Check Auth State Selector
+export const user = (state: RootState): AuthResponse => state.auth.user;  // Get User Info Selector
 
 // Export SLice
 export default authSlice.reducer;
