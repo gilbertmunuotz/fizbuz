@@ -7,7 +7,7 @@ export default function Home() {
         <>
             <TopNav />
             {/* Add responsive padding to the main content to offset the DrawerNav on larger screens */}
-            <div className="lg:ml-64 mx-6 my-4"> {/* lg:ml-64 shifts the main content to the right on large screens */}
+            <div className="lg:ml-64 mx-6 my-4"> 
                 {/* Responsive container */}
                 <div className="flex flex-col lg:flex-row gap-4">
                     {/* Chart component, full width on mobile, half on larger screens */}
