@@ -2,6 +2,7 @@ import Home from './pages/Home';
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from './components/NotFound';
+import Transaction from './pages/Transaction';
 import 'react-toastify/dist/ReactToastify.css';
 import { Slide, ToastContainer } from "react-toastify";
 import { PrivateRoute } from './components/PrivateRoute';
@@ -11,6 +12,7 @@ const router = createBrowserRouter([
   { path: "/", element: (<PrivateRoute><Home />,</PrivateRoute>), errorElement: <NotFound /> },
   { path: "/login", element: <Login />, },
   { path: "/register", element: <Register />, },
+  { path: "/transactions", element: (<PrivateRoute> <Transaction /></PrivateRoute>), errorElement: <NotFound /> }
 ]);
 
 export default function App() {

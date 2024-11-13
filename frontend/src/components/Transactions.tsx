@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Card from '@mui/material/Card';
 import Tooltip from '@mui/material/Tooltip';
 import { CardContent } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import { TransactionsDataset } from '../Interfaces/interface';
 
@@ -25,7 +26,7 @@ export default function Transactions() {
         ]
     };
 
-      // Destructure Hook
+    // Destructure Hook
 
     return (
         <div>
@@ -38,7 +39,10 @@ export default function Transactions() {
                     <div className="flex justify-end mb-4">
                         <button className="rounded-full bg-slate-600 px-5 py-1.5" onClick={handleOpen}>
                             <Tooltip title={'New Transaction'}>
-                                <h2 className="text-base text-white">New</h2>
+                                <div className="flex items-center space-x-2">
+                                    <AddIcon className="text-white" />
+                                    <h2 className="text-base text-white">New</h2>
+                                </div>
                             </Tooltip>
                         </button>
                     </div>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import photo from "/photorealistic.jpg";
 import { useDispatch } from 'react-redux';
+import Tooltip from '@mui/material/Tooltip';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import PaidIcon from '@mui/icons-material/Paid';
@@ -62,7 +63,7 @@ export default function DrawerNav() {
                 aria-label="Toggle navigation menu"
             > {isOpen ? <CloseIcon /> : <MenuIcon />}
             </button>
-            <div className={`fixed inset-y-0 left-0 transform ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition duration-200 ease-in-out z-30 w-64 bg-slate-500 shadow-lg`}>
+            <div className={`fixed inset-y-0 left-0 transform ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 transition duration-200 ease-in-out z-30 w-64 bg-gray-100 shadow-lg`}>
                 <div className="p-6 flex flex-col h-full">
                     <img src={photo} className="rounded-full mt-3 mb-4 cursor-pointer" alt="Profile" />
                     <nav>
@@ -72,7 +73,7 @@ export default function DrawerNav() {
                                     <Link
                                         to={item.path}
                                         className={`flex items-center p-2 rounded-md transition-colors ${location.pathname === item.path
-                                            ? "bg-blue-800 text-white"
+                                            ? "bg-indigo-600 text-white transition-colors"
                                             : "text-black"
                                             }`}
                                         onClick={() => setIsOpen(false)}
@@ -84,7 +85,15 @@ export default function DrawerNav() {
                             ))}
                         </ul>
                     </nav>
-                    <button type="button" disabled={isLoading} onClick={handleLogout} className='mt-auto mx-2 py-3 bg-red-600/100 rounded-full text-white'><LogoutIcon /> Log Out</button>
+                    <Tooltip title={'Log Out'}>
+                        <button
+                            type="button"
+                            disabled={isLoading}
+                            onClick={handleLogout}
+                            className='mt-auto mx-2 py-3 bg-red-600/100 rounded-full text-white'>
+                            <LogoutIcon /> Log Out
+                        </button>
+                    </Tooltip>
                 </div>
             </div>
 
