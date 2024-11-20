@@ -99,12 +99,12 @@ export default function Form({ open, close }: ModalProps) {
                             {isLoading ?
                                 <button
                                     type="submit"
-                                    className="my-3 py-2 px-28 rounded-md cursor-not-allowed text-white uppercase" style={{ backgroundColor: '#1565c0' }}>Creating...........</button>
+                                    className="my-3 py-2 px-28 rounded-md cursor-not-allowed text-white bg-indigo-600 uppercase">Creating...........</button>
                                 : <Button
                                     fullWidth
                                     type="submit"
                                     variant="contained"
-                                    sx={{ mt: 2 }} className="rounded-xl">Create</Button>
+                                    sx={{ mt: 2, backgroundColor: "#4f46e5", }} className="rounded-xl">Create</Button>
                             }
 
                         </form>
