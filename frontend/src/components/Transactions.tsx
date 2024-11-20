@@ -37,7 +37,7 @@ export default function Transactions() {
                     </div>
 
                     <div className="flex justify-end mb-4">
-                        <button className="rounded-full bg-slate-600 px-5 py-1.5" onClick={handleOpen}>
+                        <button className="rounded-full bg-indigo-600 px-5 py-1.5" onClick={handleOpen}>
                             <Tooltip title={'New Transaction'}>
                                 <div className="flex items-center space-x-2">
                                     <AddIcon className="text-white" />
