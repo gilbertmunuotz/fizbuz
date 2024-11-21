@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { UserInfo } from "../Interfaces/interface";
-import { Link, useNavigate } from "react-router-dom";
-import { useLoginMutation } from "../api/AuthSlice";
 import { useDispatch } from "react-redux";
+import { UserInfo } from "../Interfaces/interface";
+import { useLoginMutation } from "../api/AuthSlice";
 import { loginSuccess } from "../assets/authSlice";
+import { Link, useNavigate } from "react-router-dom";
 
 
 export default function Login() {
