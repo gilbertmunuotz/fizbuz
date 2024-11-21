@@ -1,11 +1,15 @@
 import NewForm from './Form';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import Tooltip from '@mui/material/Tooltip';
 import { CardContent } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import { TransactionsDataset } from '../Interfaces/interface';
+import { useGetTransactionQuery } from "../api/TransactionSlice";
+import { user } from '../assets/authSlice';
+import { useSelector } from 'react-redux';
+
 
 
 export default function Transactions() {
@@ -13,9 +17,16 @@ export default function Transactions() {
     // Manage Closing & Opening of Modal
     const [modalOpen, setModalOpen] = useState(false);
 
+
     // Modal Functions
     const handleOpen = () => setModalOpen(true);
     const handleClose = () => setModalOpen(false);
+
+    const userInfo = useSelector(user); // Access the user object
+    console.log(userInfo);
+
+
+    // const [trans, { isLoading }] = useGetTransactionQuery();
 
     // Sample Datasets
     const sampleTransactions: TransactionsDataset = {
@@ -26,7 +37,6 @@ export default function Transactions() {
         ]
     };
 
-    // Destructure Hook
 
     return (
         <div>

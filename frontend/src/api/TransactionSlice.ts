@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { SERVER_API } from "../config/constant";
+import { Transaction } from "../Interfaces/interface";
 
 // Define a base query for RTK Query
 const baseQuery = fetchBaseQuery({
@@ -18,16 +19,17 @@ export const transactionAPISlice = createApi({
         // Second parameter Represents the Passed Data Type
 
         // Get All Transactions Based on userId
-        getTransaction: build.query({
-            query: () => ({
+        getTransaction: build.query<Transaction, number>({
+            query: (id) => ({
                 url: '/transactions',
                 method: 'GET',
+                body: id
             }),
             providesTags: ['Transaction']
         }),
 
         // Post New Transaction
-        addTransaction: build.mutation({
+        addTransaction: build.mutation<void, Transaction>({
             query: (transaction) => ({
                 url: '/new',
                 method: 'POST',

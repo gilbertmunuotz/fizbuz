@@ -39,8 +39,9 @@ async function createTransaction(req: Request, res: Response, next: NextFunction
 //(DESC) Get All Transactions
 async function getTransactions(req: Request, res: Response, next: NextFunction) {
 
-    // Get userId from session
-    const userId = req.session.userId;
+    // Destructure Request Body and explicitly type it
+    const { userId } = req.body;
+
 
     if (!userId) {
         res.status(HttpStatusCodes.BAD_REQUEST).json({ Status: "Error", Message: "Invalid Or No Id Found" });
