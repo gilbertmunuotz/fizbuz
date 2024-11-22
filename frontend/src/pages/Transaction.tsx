@@ -1,6 +1,30 @@
+import { useEffect } from 'react';
 import TopNav from "../components/TopNav";
+import { useSelector } from 'react-redux';
+import { user } from '../assets/authSlice';
+import { AuthResponse } from '../Interfaces/interface';
+import { useGetTransactionQuery } from "../api/TransactionSlice";
+
 
 export default function Transaction() {
+
+    // Extract user information & Annotate it 
+    const userInfo = useSelector(user) as AuthResponse;
+
+    // Grab the Id from userInfo Object
+    const userId = userInfo.id;
+
+    // Get the full data object from RTK Query
+    const { data: transactions } = useGetTransactionQuery(userId);
+
+
+    useEffect(() => {
+        if (transactions) {
+            console.log('Fetched Transactions:', transactions);
+        }
+    }, [transactions]);
+
+
     return (
         <>
             <TopNav />
