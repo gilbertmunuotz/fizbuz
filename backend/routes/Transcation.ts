@@ -13,7 +13,7 @@ router.post("/new", authMiddleware, transactionMiddleware, createTransaction);
 
 
 /* GET All Transactions */
-router.get("/transactions", authMiddleware, getTransactions);
+router.get("/transactions/:userId", authMiddleware, getTransactions);
 
 
 /* GET Single Transaction */

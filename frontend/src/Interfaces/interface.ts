@@ -10,10 +10,18 @@ interface TransactionsDataset {
 
 
 interface Transaction {
+    id: string,
     userId: number,
     name: string,
     amount: string,
-    type: string
+    type: string,
+    createdAt?: string,
+    updatedAt?: string
+}
+
+interface TransactionResponse {
+    status: string,
+    transactions: Transaction[]
 }
 
 
@@ -50,4 +58,4 @@ interface AuthResponse {
 }
 
 
-export type { ModalProps, TransactionsDataset, Transaction, Credentials, UserInfo, AuthState, AuthResponse };
+export type { ModalProps, TransactionsDataset, Transaction, Credentials, UserInfo, AuthState, AuthResponse, TransactionResponse };

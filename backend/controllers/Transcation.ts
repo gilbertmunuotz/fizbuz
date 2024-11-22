@@ -39,8 +39,8 @@ async function createTransaction(req: Request, res: Response, next: NextFunction
 //(DESC) Get All Transactions
 async function getTransactions(req: Request, res: Response, next: NextFunction) {
 
-    // Destructure Request Body and explicitly type it
-    const { userId } = req.body;
+    // Destructure Request Params and explicitly type it
+    const { userId } = req.params;
 
 
     if (!userId) {
@@ -49,13 +49,13 @@ async function getTransactions(req: Request, res: Response, next: NextFunction) 
     }
 
     try {
-        const transaction = await TransactionModel.findAll({ where: { userId: userId } });
+        const transactions = await TransactionModel.findAll({ where: { userId: userId } });
 
-        if (transaction.length === 0) {
+        if (transactions.length === 0) {
             res.status(HttpStatusCodes.NOT_FOUND).json({ Status: 'Error', Message: "Transaction Not Found" });
             return;
         } else {
-            res.status(HttpStatusCodes.OK).json({ Status: "Success", transaction });
+            res.status(HttpStatusCodes.OK).json({ Status: "Success", transactions });
         }
 
 
