@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import { user } from '../assets/authSlice';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { AuthResponse } from '../Interfaces/interface';
-import { useGetTransactionQuery } from "../api/TransactionSlice";
+import { useGetTransactionQuery, useDeleteTransactionMutation } from "../api/TransactionSlice";
 
 
 export default function Transaction() {
@@ -16,16 +16,25 @@ export default function Transaction() {
     // Grab the Id from userInfo Object
     const userId = userInfo.id;
 
-    // Get the full data object from RTK Query
+    // Get Transaction Data from RTK Query
     const { data: transactions } = useGetTransactionQuery(userId);
 
+    // Delete Transaction using RTK Query
+    const [] = useDeleteTransactionMutation();
 
+    // Update Fetched Data on Page Load
     useEffect(() => {
         if (transactions) {
             console.log('Fetched Transactions:', transactions);
         }
     }, [transactions]);
 
+    // Delete Transaction Logic
+    async function handleDelete() {
+        event.preventDefault()
+
+        window.alert("Button Clicked")
+    }
 
     return (
         <>
@@ -45,7 +54,7 @@ export default function Transaction() {
                                     </p>
                                 </div>
 
-                                <Button><DeleteIcon sx={{ cursor: 'pointer', color: 'red' }} /></Button>
+                                <Button onClick={handleDelete}><DeleteIcon sx={{ cursor: 'pointer', color: 'red' }} /></Button>
                             </div>
                         ))}
                     </div>
