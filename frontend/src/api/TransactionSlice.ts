@@ -40,10 +40,11 @@ export const transactionAPISlice = createApi({
 
         // Delete Transaction Based on userId
         deleteTransaction: build.mutation<void, number>({
-            query: (_id) => ({
-                url: `/transaction/delete/${_id}`,
+            query: (id) => ({
+                url: `/transaction/delete/${id}`,
                 method: 'DELETE',
-            })
+            }),
+            invalidatesTags: ['Transaction']
         }),
     })
 });
