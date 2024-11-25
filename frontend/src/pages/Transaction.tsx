@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 import TopNav from "../components/TopNav";
 import { useSelector } from 'react-redux';
-import Button from '@mui/material/Button';
 import { user } from '../assets/authSlice';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { AuthResponse } from '../Interfaces/interface';
@@ -20,7 +20,8 @@ export default function Transaction() {
     const { data: transactions } = useGetTransactionQuery(userId);
 
     // Delete Transaction using RTK Query
-    const [] = useDeleteTransactionMutation();
+    const [deleteTransaction] = useDeleteTransactionMutation();
+
 
     // Update Fetched Data on Page Load
     useEffect(() => {
@@ -30,10 +31,14 @@ export default function Transaction() {
     }, [transactions]);
 
     // Delete Transaction Logic
-    async function handleDelete() {
-        event.preventDefault()
-
-        window.alert("Button Clicked")
+    async function handleDelete(id: number) {
+        try {
+            await deleteTransaction(id).unwrap();
+            toast.success("Transaction deleted successfully");
+        } catch (error) {
+            console.error('Failed to delete Transaction: ', error);
+            toast.error("Error Deleting Transaction");
+        }
     }
 
     return (
@@ -54,7 +59,7 @@ export default function Transaction() {
                                     </p>
                                 </div>
 
-                                <Button onClick={handleDelete}><DeleteIcon sx={{ cursor: 'pointer', color: 'red' }} /></Button>
+                                <button onClick={() => handleDelete(transaction.id)}> <DeleteIcon sx={{ cursor: 'pointer', color: 'red' }} /></button>
                             </div>
                         ))}
                     </div>
