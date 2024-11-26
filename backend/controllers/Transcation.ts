@@ -35,7 +35,6 @@ async function createTransaction(req: Request, res: Response, next: NextFunction
 }
 
 
-
 //(DESC) Get All Transactions
 async function getTransactions(req: Request, res: Response, next: NextFunction) {
 
@@ -49,7 +48,7 @@ async function getTransactions(req: Request, res: Response, next: NextFunction) 
     }
 
     try {
-        const transactions = await TransactionModel.findAll({ where: { userId: userId } });
+        const transactions = await TransactionModel.findAll({ where: { userId: userId }, order: [['createdAt', 'DESC']] });
 
         if (transactions.length === 0) {
             res.status(HttpStatusCodes.NOT_FOUND).json({ Status: 'Error', Message: "Transaction Not Found" });
@@ -73,7 +72,45 @@ async function getTransactions(req: Request, res: Response, next: NextFunction) 
 }
 
 
-//(DESC) Get Single Transaction
+//(DESC) Get Top 3 Transactions
+async function top3Transactions(req: Request, res: Response, next: NextFunction) {
+
+    // Destructure Request Params and explicitly type it
+    const { userId } = req.params;
+
+    if (!userId) {
+        res.status(HttpStatusCodes.BAD_REQUEST).json({ Status: "Error", Message: "Invalid Or No Id Found" });
+        return;
+    }
+
+
+    try {
+        const transactions = await TransactionModel.findAll({
+            where: { userId: userId }, order: [['createdAt', 'DESC']], limit: 3
+        })
+
+        if (!transactions) {
+            res.status(HttpStatusCodes.NOT_FOUND).json({ Status: 'Error', Message: "Transaction Not Available" });
+            return;
+        } else {
+            res.status(HttpStatusCodes.OK).json({ Status: "Success", transactions });
+        }
+
+    } catch (error) {
+        // Log the error and pass it to the next middleware
+        console.error('An Error Occurred, Please Try Again Later', error);
+
+        // Send error response and call next() to pass the error to the error-handling middleware
+        res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+            status: 'error',
+            message: 'An Error Occurred, Please Try Again Later'
+        });
+        next(error);
+    }
+}
+
+
+//(DESC) Get Single Transaction (HAITUMIKI KWA SASA)
 async function getTransaction(req: Request, res: Response, next: NextFunction) {
 
     // Destructure id from params
@@ -117,16 +154,14 @@ async function deleteTransaction(req: Request, res: Response, next: NextFunction
     // Destructure id from params
     const { id } = req.params;
 
-    // Get userId from session
-    const userId = req.session.userId;
 
-    if (!id && !userId) {
+    if (!id) {
         res.status(HttpStatusCodes.BAD_REQUEST).json({ Status: "Error", Message: "Invalid ID or User not authenticated" });
         return;
     }
 
     try {
-        const deletedTransactionCount = await TransactionModel.destroy({ where: { id: id, userId: userId }, });
+        const deletedTransactionCount = await TransactionModel.destroy({ where: { id: id } });
 
         // Check if the transaction was deleted
         if (deletedTransactionCount === 0) {
@@ -151,4 +186,4 @@ async function deleteTransaction(req: Request, res: Response, next: NextFunction
 }
 
 
-export { createTransaction, getTransactions, getTransaction, deleteTransaction };
+export { createTransaction, getTransactions, top3Transactions, getTransaction, deleteTransaction };

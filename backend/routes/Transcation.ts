@@ -2,7 +2,7 @@
 import { Router } from "express";
 import { authMiddleware } from "../middlewares/Auth";
 import { transactionMiddleware } from '../middlewares/Transaction';
-import { createTransaction, getTransactions, getTransaction, deleteTransaction } from '../controllers/Transcation';
+import { createTransaction, getTransactions, top3Transactions, getTransaction, deleteTransaction } from '../controllers/Transcation';
 
 // **** Functions **** //
 //Initiate Express Router
@@ -14,6 +14,10 @@ router.post("/new", authMiddleware, transactionMiddleware, createTransaction);
 
 /* GET All Transactions */
 router.get("/transactions/:userId", authMiddleware, getTransactions);
+
+
+/* GET Top 3 Transactions */
+router.get("/top3-transactions/:userId", authMiddleware, top3Transactions);
 
 
 /* GET Single Transaction */
