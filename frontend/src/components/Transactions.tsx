@@ -1,14 +1,22 @@
 import NewForm from './Form';
 import { useState } from 'react';
 import Card from '@mui/material/Card';
+import { user } from '../assets/authSlice';
+import { useSelector } from 'react-redux';
 import Tooltip from '@mui/material/Tooltip';
 import { CardContent } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import { TransactionsDataset } from '../Interfaces/interface';
+import { AuthResponse } from '../Interfaces/interface';
+import { useGetTop3TransactionsQuery } from "../api/TransactionSlice";
 
 
 export default function Transactions() {
+
+    // Extract user information & Annotate it 
+    const userInfo = useSelector(user) as AuthResponse;
+
+    // Grab the Id from userInfo Object
+    const userId = userInfo.id;
 
     // Manage Closing & Opening of Modal
     const [modalOpen, setModalOpen] = useState(false);
@@ -18,15 +26,9 @@ export default function Transactions() {
     const handleOpen = () => setModalOpen(true);
     const handleClose = () => setModalOpen(false);
 
+    // Destructure RTK Hook
+    const { data: transactions } = useGetTop3TransactionsQuery(userId);
 
-    // Sample Datasets
-    const sampleTransactions: TransactionsDataset = {
-        sampleTransactions: [
-            "Rent Payment",
-            "Grocery Shopping",
-            "Public Transport Fare"
-        ]
-    };
 
     return (
         <div>
@@ -56,21 +58,14 @@ export default function Transactions() {
                         <h4 className="text-2xl font-serif mt-4">History</h4>
                         {/* Render your transaction history here */}
                         <ul>
-                            {sampleTransactions.sampleTransactions.map((transaction: string, index: number) => (
-                                <li key={index}>
-                                    <Card sx={{ marginBottom: 1, my: 1 }}>
+                            {transactions?.transactions.map((transaction) => (
+                                <div key={transaction.id} className={`border-l-4 p-4 rounded shadow-sm mb-4 ${transaction.type === 'income' ? 'border-blue-500' : 'border-yellow-500'}`}>
+                                    <Card sx={{ my: 0, gap: 2, cursor: 'pointer' }}>
                                         <CardContent>
-                                            <div className="text-lg">
-                                                {index + 1}. {transaction}
-                                            </div>
-                                            <div className="flex justify-end">
-                                                <Tooltip title={"Edit"}>
-                                                    <EditIcon sx={{ color: 'green' }} />
-                                                </Tooltip>
-                                            </div>
+                                            <h3 className='font-semibold'>{transaction.name}</h3>
                                         </CardContent>
                                     </Card>
-                                </li>
+                                </div>
                             ))}
                         </ul>
                     </div>

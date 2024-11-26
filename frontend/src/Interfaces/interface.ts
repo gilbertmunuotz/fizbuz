@@ -4,11 +4,6 @@ interface ModalProps {
 }
 
 
-interface TransactionsDataset {
-    sampleTransactions: string[],
-}
-
-
 interface Transaction {
     id: number,
     userId: number,
@@ -18,6 +13,7 @@ interface Transaction {
     createdAt?: string,
     updatedAt?: string
 }
+
 
 interface TransactionResponse {
     status: string,
@@ -58,4 +54,4 @@ interface AuthResponse {
 }
 
 
-export type { ModalProps, TransactionsDataset, Transaction, Credentials, UserInfo, AuthState, AuthResponse, TransactionResponse };
+export type { ModalProps, Transaction, Credentials, UserInfo, AuthState, AuthResponse, TransactionResponse };

@@ -27,7 +27,16 @@ export const transactionAPISlice = createApi({
             providesTags: ['Transaction']
         }),
 
-        // Post New Transaction
+        // Get Latest 3 Transactions Based on userId
+        getTop3Transactions: build.query<TransactionResponse, number>({
+            query: (id) => ({
+                url: `/top3-transactions/${id}`,
+                method: 'GET',
+            }),
+            providesTags: ['Transaction']
+        }),
+
+        // Post New Transaction Based on userId
         addTransaction: build.mutation<void, Transaction>({
             query: (transaction) => ({
                 url: '/new',
@@ -51,4 +60,4 @@ export const transactionAPISlice = createApi({
 
 
 // Export hooks for usage in functional components
-export const { useAddTransactionMutation, useGetTransactionQuery, useDeleteTransactionMutation } = transactionAPISlice;
+export const { useAddTransactionMutation, useGetTransactionQuery, useGetTop3TransactionsQuery, useDeleteTransactionMutation } = transactionAPISlice;
