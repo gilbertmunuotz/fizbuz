@@ -7,16 +7,16 @@ import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import PaidIcon from '@mui/icons-material/Paid';
 import CloseIcon from '@mui/icons-material/Close';
-import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { logoutSuccess } from "../assets/authSlice";
 import { useLogoutMutation } from '../api/AuthSlice';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const navItems = [
     { name: "Home", path: "/", icon: <HomeIcon sx={{ color: 'black', fontSize: 30 }} /> },
     { name: "Transactions", path: "/transactions", icon: <PaidIcon sx={{ color: 'black', fontSize: 30 }} /> },
-    { name: "Profile", path: "/settings", icon: <PersonIcon sx={{ color: 'black', fontSize: 30 }} /> },
+    { name: "Settings", path: "/settings", icon: <SettingsIcon sx={{ color: 'black', fontSize: 30 }} /> },
 ];
 
 export default function DrawerNav() {
