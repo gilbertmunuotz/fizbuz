@@ -1,5 +1,6 @@
 import Home from './pages/Home';
 import Login from "./pages/Login";
+import Settings from './pages/Settings';
 import Register from "./pages/Register";
 import NotFound from './components/NotFound';
 import Transaction from './pages/Transaction';
@@ -12,7 +13,8 @@ const router = createBrowserRouter([
   { path: "/", element: (<PrivateRoute><Home />,</PrivateRoute>), errorElement: <NotFound /> },
   { path: "/login", element: <Login />, },
   { path: "/register", element: <Register />, },
-  { path: "/transactions", element: (<PrivateRoute> <Transaction /></PrivateRoute>), errorElement: <NotFound /> }
+  { path: "/transactions", element: (<PrivateRoute> <Transaction /></PrivateRoute>), errorElement: <NotFound /> },
+  { path: "/settings", element: (<PrivateRoute> <Settings /></PrivateRoute>), errorElement: <NotFound /> }
 ]);
 
 export default function App() {

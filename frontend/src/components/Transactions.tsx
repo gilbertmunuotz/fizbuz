@@ -59,10 +59,11 @@ export default function Transactions() {
                         {/* Render your transaction history here */}
                         <ul>
                             {transactions?.transactions.map((transaction) => (
-                                <div key={transaction.id} className={`border-l-4 p-4 rounded shadow-sm mb-4 ${transaction.type === 'income' ? 'border-blue-500' : 'border-yellow-500'}`}>
+                                <div key={transaction.id} className={`border-r-4 p-4 rounded shadow-sm mb-4 ${transaction.type === 'income' ? 'border-blue-500' : 'border-yellow-500'}`}>
                                     <Card sx={{ my: 0, gap: 2, cursor: 'pointer' }}>
-                                        <CardContent>
+                                        <CardContent sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                                             <h3 className='font-semibold'>{transaction.name}</h3>
+                                            <h4 className='font-semibold'>${transaction.amount}</h4>
                                         </CardContent>
                                     </Card>
                                 </div>
