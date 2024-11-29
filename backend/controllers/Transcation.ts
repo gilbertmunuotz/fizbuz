@@ -1,12 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import HttpStatusCodes from "../constants/HttpStatusCodes";
 import TransactionModel from "../models/Transactions";
+import { TransactionBody } from "../constants/Interfaces";
 
 
 //(DESC) Create New Transaction
 async function createTransaction(req: Request, res: Response, next: NextFunction): Promise<void> {
     // Destructure Request Body and explicitly type it
-    const { name, amount, type, userId } = req.body;
+    const { name, amount, type, userId }: TransactionBody = req.body;
 
     if (!userId) {
         // Respond with an error if the user ID is missing
