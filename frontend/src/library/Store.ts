@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage";
 import { transactionAPISlice } from "../api/TransactionSlice";
 import { authSlice } from "../api/AuthSlice";
 import authReducer from "../assets/authSlice";
+import { userSlice } from "../api/UserSlice";
 
 
 // Persist configuration for auth slice
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     auth: persistReducer(authPersistConfig, authReducer), // Only persist the auth slice 
     [transactionAPISlice.reducerPath]: transactionAPISlice.reducer,
     [authSlice.reducerPath]: authSlice.reducer,
+    [userSlice.reducerPath]: userSlice.reducer,
 })
 
 //  Export The store
@@ -29,7 +31,7 @@ export const Store = configureStore({
             serializableCheck: {
                 ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE']
             },
-        }).concat(transactionAPISlice.middleware, authSlice.middleware,),
+        }).concat(transactionAPISlice.middleware, authSlice.middleware, userSlice.middleware),
 });
 
 

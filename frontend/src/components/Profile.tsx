@@ -1,16 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { user } from "../assets/authSlice";
+import { AuthResponse } from "../Interfaces/interface";
+import { useGetUserInfoQuery } from "../api/UserSlice";
 
 
 export default function Profile() {
+
+    // Extract User Name from User Slice to display on UI
+    const userInfo = useSelector(user) as AuthResponse;
+    const username = userInfo.name;
+
+    // Extract User id to pass it to useGetUserInfoQuery
+    const userId = userInfo.id;
+
 
     // Manage Form State
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    // use rtk hook
+    const { data } = useGetUserInfoQuery(userId);
+
+    useEffect(() => {
+        if (data) {
+            setName(data.user.name);
+            setEmail(data.user.email);
+        }
+    }, [data]);
+
+
     return (
         <div>
-            <h5 className="ml-12 mb-3">Hello $username</h5>
+            <h5 className="ml-12 mb-4 font-semibold text-lg">Hello {username}!</h5>
             <form className="space-y-5 ml-12 mr-52">
                 <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
@@ -56,8 +79,9 @@ export default function Profile() {
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
                     />
                 </div>
-
-                <hr className="border-y border-black" />
+                <div className="flex justify-end">
+                    <button type="submit" className="px-4 py-1 bg-indigo-600 rounded-full text-white">Update</button>
+                </div>
             </form>
         </div>
     )

@@ -29,6 +29,7 @@ interface Credentials {
 
 
 interface UserInfo {
+    name?: string,
     email: string,
     password: string
 }
@@ -53,5 +54,16 @@ interface AuthResponse {
     updatedAt?: string
 }
 
+interface UserResponse {
+    user: {
+        id: number,
+        name: string,
+        email: string,
+        password?: string,
+        otp?: string,
+        otpExpiresAt?: string
+    }
+}
 
-export type { ModalProps, Transaction, Credentials, UserInfo, AuthState, AuthResponse, TransactionResponse };
+
+export type { ModalProps, Transaction, Credentials, UserInfo, AuthState, AuthResponse, TransactionResponse, UserResponse };
