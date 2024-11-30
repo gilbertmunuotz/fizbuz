@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 import { user } from "../assets/authSlice";
 import { AuthResponse } from "../Interfaces/interface";
-import { useGetUserInfoQuery } from "../api/UserSlice";
+import { useGetUserInfoQuery, useUpdateUserMutation } from "../api/UserSlice";
 
 
 export default function Profile() {
@@ -14,15 +15,15 @@ export default function Profile() {
     // Extract User id to pass it to useGetUserInfoQuery
     const userId = userInfo.id;
 
-
     // Manage Form State
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    // use rtk hook
+    // use rtk hook to Get user Data
     const { data } = useGetUserInfoQuery(userId);
 
+    // Render Data on Page Load
     useEffect(() => {
         if (data) {
             setName(data.user.name);
@@ -31,10 +32,27 @@ export default function Profile() {
     }, [data]);
 
 
+    // use rtk hook to Update user Data
+    const [update, { isLoading }] = useUpdateUserMutation();
+
+    async function handleSubmit(event: React.FormEvent) {
+        event.preventDefault()
+
+        try {
+            await update({ id: userId, name, email, password }).unwrap();
+            toast.success("Profile updated successfully!");
+        } catch (error) {
+            console.error("Error Updating Profile", error);
+            toast.error("Error Occured, Try Again");
+        }
+    }
+
     return (
         <div>
+
             <h5 className="ml-12 mb-4 font-semibold text-lg">Hello {username}!</h5>
-            <form className="space-y-5 ml-12 mr-52">
+
+            <form className="space-y-5 ml-12 mr-52" onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                         Name
@@ -79,8 +97,13 @@ export default function Profile() {
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
                     />
                 </div>
+
                 <div className="flex justify-end">
-                    <button type="submit" className="px-4 py-1 bg-indigo-600 rounded-full text-white">Update</button>
+                    {isLoading ? (
+                        <button type="submit" disabled={isLoading} className="px-4 py-1 bg-indigo-600 rounded-full text-white cursor-not-allowed">Updating</button>
+                    ) : (
+                        <button type="submit" className="px-4 py-1 bg-indigo-600 rounded-full text-white">Update</button>
+                    )}
                 </div>
             </form>
         </div>
