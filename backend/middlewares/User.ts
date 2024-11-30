@@ -5,6 +5,7 @@ import HttpStatusCodes from "../constants/HttpStatusCodes";
 export function UserMiddleware(req: Request, res: Response, next: NextFunction): void {
     // Define Validation Schema
     const userSchema = Joi.object().keys({
+        id: Joi.number().optional(),
         name: Joi.string().required(),
         email: Joi.string().pattern(new RegExp(/[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/i)).required(),
         password: Joi.string().required(),

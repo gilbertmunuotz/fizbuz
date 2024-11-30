@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import HttpStatusCodes from "../constants/HttpStatusCodes";
-import UserModel, { UserAttributes } from '../models/User';
+import UserModel from '../models/User';
 import bcrypt from "bcrypt";
 import { User } from '../constants/Interfaces';
 
-//(DESC) Get User INfo
+//(DESC) Get User Info
 async function getUserInfo(req: Request, res: Response, next: NextFunction) {
 
     // Destructure Request Params and explicitly type it
@@ -40,4 +40,14 @@ async function getUserInfo(req: Request, res: Response, next: NextFunction) {
 
 }
 
-export { getUserInfo };
+//(DESC) Update User Info
+async function updateUser(req: Request, res: Response, next: NextFunction) {
+
+    // Dstructure req.body and explicity type it
+    const { id, name, email, password }: User = req.body;
+
+    console.log(req.body);
+
+}
+
+export { getUserInfo, updateUser };
