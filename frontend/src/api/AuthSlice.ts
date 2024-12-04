@@ -1,6 +1,6 @@
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 import { SERVER_API } from "../config/constant";
-import { Credentials, UserInfo } from "../Interfaces/interface";
+import { Credentials, LoginUserInfo } from "../Interfaces/interface";
 
 const baseQuery = fetchBaseQuery({
     baseUrl: `${SERVER_API}/v1/auth`,
@@ -23,7 +23,7 @@ export const authSlice = createApi({
             })
         }),
 
-        login: build.mutation<void, UserInfo>({
+        login: build.mutation<void, LoginUserInfo>({
             query: (credentials) => ({
                 url: `/login`,
                 method: 'POST',
