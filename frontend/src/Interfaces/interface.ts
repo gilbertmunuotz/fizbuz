@@ -36,6 +36,12 @@ interface UserInfo {
 }
 
 
+interface LoginUserInfo {
+    email: string,
+    password: string
+}
+
+
 interface AuthState {
     isUserAuth: boolean,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -55,6 +61,7 @@ interface AuthResponse {
     updatedAt?: string
 }
 
+
 interface UserResponse {
     user: {
         id: number,
@@ -67,4 +74,4 @@ interface UserResponse {
 }
 
 
-export type { ModalProps, Transaction, Credentials, UserInfo, AuthState, AuthResponse, TransactionResponse, UserResponse };
+export type { ModalProps, Transaction, Credentials, UserInfo, LoginUserInfo, AuthState, AuthResponse, TransactionResponse, UserResponse };
