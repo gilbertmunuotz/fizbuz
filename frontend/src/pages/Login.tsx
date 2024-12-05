@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { UserInfo } from "../Interfaces/interface";
 import { useLoginMutation } from "../api/AuthSlice";
 import { loginSuccess } from "../assets/authSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { LoginUserInfo } from "../Interfaces/interface";
 
 
 export default function Login() {
@@ -27,10 +27,10 @@ export default function Login() {
 
         event.preventDefault();
 
-        const userInfo: UserInfo = { email, password };
+        const userData: LoginUserInfo = { email, password };
 
         try {
-            const user = await login(userInfo).unwrap();
+            const user = await login(userData).unwrap();
             dispatch(loginSuccess(user));
             setEmail("");
             setPassword("");

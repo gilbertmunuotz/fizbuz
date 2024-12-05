@@ -11,6 +11,7 @@ export default function Transaction() {
 
     // Extract user information & Annotate it 
     const userInfo = useSelector(user) as AuthResponse;
+    
 
     // Grab the Id from userInfo Object
     const userId = userInfo.id;
