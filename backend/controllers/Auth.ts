@@ -63,25 +63,79 @@ async function loginUser(req: Request, res: Response, next: NextFunction): Promi
 
         // If Password is Not Valid
         if (!isPasswordValid) {
-            res.status(HttpStatusCodes.UNAUTHORIZED).json({ status: 'Error', message: 'Invalid Email or Password.!' });
+            res.status(HttpStatusCodes.BAD_REQUEST).json({ status: 'Error', message: 'Invalid Email or Password.!' });
             return;
         }
+
+        // Capture User-Agent and IP Address
+        const userAgent = req.headers["user-agent"] || "unknown";
+        let ipAddress = req.headers["x-forwarded-for"] || req.socket.remoteAddress || "unknown";
+
+        // If x-forwarded-for is an array, use the first IP address in the list
+        if (Array.isArray(ipAddress)) {
+            ipAddress = ipAddress[0];
+        }
+
+        // Update User's IP Address and User-Agent
+        user.ipAddress = ipAddress;
+        user.userAgent = userAgent;
+        await user.save();
+
 
         // Store user Id in session safely
         req.session.userId = user.id.toString(); // Convert user ID to a string
 
-        // Call save method on the session
+        // Save session info
         req.session.save((error) => {
             if (error) {
                 return next(error); // Handle session save error
             }
-            res.status(HttpStatusCodes.OK).json({ status: 'Success', message: 'Logged in successfully', user, sessionID: req.sessionID });
+            res.status(HttpStatusCodes.OK)
+                .json({
+                    status: 'Success', message: 'Logged in successfully',
+                    user, sessionID: req.sessionID
+                });
         });
 
     } catch (error) {
         console.error("Error Logging In", error);
         res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Internal Server Error' });
         next(error);
+    }
+}
+
+
+// (DESC) Controller Logic to Fetch Session Info
+async function getSessionInfo(req: Request, res: Response): Promise<void> {
+    try {
+        const userId = req.session.userId;
+
+        // Find the user from DB based on session data
+        const user = await UserModel.findByPk(userId);
+
+        // If user is not found, return a 404 response
+        if (!user) {
+            res.status(HttpStatusCodes.NOT_FOUND).json({
+                status: 'Error',
+                message: 'User not found for the current session',
+            });
+        }
+
+        // If user is found, return user data and session info
+        res.status(HttpStatusCodes.OK).json({
+            status: 'Success',
+            user,
+            sessionID: req.sessionID,
+            userAgent: req.headers["user-agent"],
+            ipAddress: req.ip, 
+        });
+
+    } catch (error) {
+        console.error("Error fetching session info:", error);
+        res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+            status: 'Error',
+            message: 'Internal Server Error',
+        });
     }
 }
 
@@ -103,4 +157,4 @@ async function logoutUser(req: Request, res: Response, next: NextFunction) {
 }
 
 
-export { createUser, loginUser, logoutUser };
+export { createUser, loginUser, getSessionInfo, logoutUser };

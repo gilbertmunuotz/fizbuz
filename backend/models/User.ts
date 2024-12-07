@@ -9,6 +9,8 @@ export interface UserAttributes {
     password: string;
     otp?: string;
     otpExpiresAt?: string;
+    ipAddress?: string;
+    userAgent?: string;
 }
 
 // Optional fields for creating a user
@@ -22,6 +24,8 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
     public password!: string;
     public otp?: string;
     public otpExpiresAt?: string;
+    public ipAddress?: string;
+    public userAgent?: string;
 
     // Timestamps
     public readonly createdAt!: Date;
@@ -55,6 +59,12 @@ User.init(
         otpExpiresAt: {
             type: DataTypes.STRING,
             allowNull: true,
+        },
+        ipAddress: {
+            type: DataTypes.STRING,
+        },
+        userAgent: {
+            type: DataTypes.STRING,
         },
     },
     {
