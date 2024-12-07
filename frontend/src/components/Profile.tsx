@@ -1,12 +1,14 @@
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { user } from "../assets/authSlice";
+import { useSelector, useDispatch } from "react-redux";
 import { AuthResponse } from "../Interfaces/interface";
+import { updateProfileSuccess, user } from "../assets/authSlice";
 import { useGetUserInfoQuery, useUpdateUserMutation } from "../api/UserSlice";
 
 
 export default function Profile() {
+
+    const dispatch = useDispatch();
 
     // Extract User Name from User Slice to display on UI
     const userInfo = useSelector(user) as AuthResponse;
@@ -21,7 +23,7 @@ export default function Profile() {
     const [password, setPassword] = useState("");
 
     // use rtk hook to Get user Data
-    const { data } = useGetUserInfoQuery(userId);
+    const { data, refetch } = useGetUserInfoQuery(userId);
 
     // Render Data on Page Load
     useEffect(() => {
@@ -39,7 +41,21 @@ export default function Profile() {
         event.preventDefault()
 
         try {
-            await update({ id: userId, name, email, password }).unwrap();
+            // Make the API call and get the updated user data
+            const updatedUser = await update({ id: userId, name, email, password }).unwrap();
+            // Dispatch the updated user data to the Redux store
+            dispatch(updateProfileSuccess(updatedUser));
+
+            // Refetch the updated user data from the server to reflect the changes
+            const updatedData = await refetch(); // Ensure the updated data is fetched
+
+            // Update local state with the latest data
+            if (updatedData?.data) {
+                setName(updatedData.data.user.name);
+                setEmail(updatedData.data.user.email);
+            }
+
+            setPassword("");
             toast.success("Profile updated successfully!");
         } catch (error) {
             console.error("Error Updating Profile", error);
@@ -100,7 +116,7 @@ export default function Profile() {
 
                 <div className="flex justify-end">
                     {isLoading ? (
-                        <button type="submit" disabled={isLoading} className="px-4 py-1 bg-indigo-600 rounded-full text-white cursor-not-allowed">Updating</button>
+                        <button type="submit" disabled={isLoading} className="px-4 py-1 bg-indigo-600 rounded-full text-white cursor-not-allowed">Updating...</button>
                     ) : (
                         <button type="submit" className="px-4 py-1 bg-indigo-600 rounded-full text-white">Update</button>
                     )}
