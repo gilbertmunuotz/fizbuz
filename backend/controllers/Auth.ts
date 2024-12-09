@@ -125,9 +125,7 @@ async function getSessionInfo(req: Request, res: Response): Promise<void> {
         res.status(HttpStatusCodes.OK).json({
             status: 'Success',
             user,
-            sessionID: req.sessionID,
-            userAgent: req.headers["user-agent"],
-            ipAddress: req.ip, 
+            sessionID: req.sessionID
         });
 
     } catch (error) {
