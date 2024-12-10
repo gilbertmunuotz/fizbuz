@@ -19,7 +19,7 @@ router.post('/login', LoginMiddleware, loginUser);
 
 
 /* Session Route */
-router.get('/info', getSessionInfo);
+router.get('/info/:id', getSessionInfo);
 
 
 /* Logout Route */
