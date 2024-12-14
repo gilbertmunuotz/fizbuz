@@ -8,20 +8,20 @@ export default function Settings() {
             <TopNav />
 
             {/* Add responsive padding to the main content to offset the DrawerNav on larger screens */}
-            <div className="lg:ml-64 mx-6 my-4">
+            <div className="lg:ml-64 p-6">
                 {/* Responsive container */}
-                <div className="flex flex-col lg:flex-row gap-4">
-                    {/* Profile component, full width on mobile, three quater on larger screens */}
+                <div className="flex flex-col lg:flex-row lg:gap-10 lg:items-stretch">
+                    {/* Profile component, full width on mobile, three-quarters on larger screens */}
                     <div className="w-full lg:w-3/4">
                         <Profile />
                     </div>
 
-                    {/* Sessions component, full width on mobile, quater on larger screens */}
+                    {/* Sessions component, full width on mobile, occupying the remaining space */}
                     <div className="w-full lg:w-1/4">
                         <Sessions />
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }
