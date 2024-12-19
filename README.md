@@ -1,6 +1,6 @@
-## Fizbuzz
+## Fizbuz
 
-Fizbuzz is a lightweight and intuitive expense tracking application designed to help users manage their income and expenses effectively. This first version includes the following features:
+Fizbuz is a lightweight and intuitive expense tracking application designed to help users manage their income and expenses effectively. This first version includes the following features:
 
 1. ## Core Features:<br>
    a) Visualize daily income and expense trends using Recharts.
@@ -30,8 +30,8 @@ Fizbuzz is a lightweight and intuitive expense tracking application designed to 
     i). [Redux Toolkit](https://redux-toolkit.js.org/)
 
     ## Future Enhancements:<br>
-        Advanced data visualizations (e.g., category-wise breakdowns).
-        Export transactions to CSV or PDF.
+        . Advanced data visualizations (e.g., category-wise breakdowns).
+        . Export transactions to CSV or PDF.
 
     ## 🙌 Contribution
 
