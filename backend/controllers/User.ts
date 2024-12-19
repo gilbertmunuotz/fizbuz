@@ -7,7 +7,7 @@ import { User } from '../constants/Interfaces';
 //(DESC) Get User Info
 async function getUserInfo(req: Request, res: Response, next: NextFunction) {
 
-    // Destructure Request Params and explicitly type it
+    // Destructure Request Params 
     const { id } = req.params;
 
     if (!id) {
