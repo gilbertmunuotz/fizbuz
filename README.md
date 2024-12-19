@@ -16,7 +16,7 @@ Fizbuzz is a lightweight and intuitive expense tracking application designed to 
 3. Tech Stack:
 
 a) Frontend
-    1. [React](https://react.dev)
+    1. [React](https://react.dev)<br>
     2. [Tailwind CSS](https://tailwindcss.com)
     3. [Recharts](https://recharts.org/en-US)
 
