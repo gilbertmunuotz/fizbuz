@@ -1,5 +1,5 @@
 ## Fizbuzz 
-Is a lightweight and intuitive expense tracking application designed to help users manage their income and expenses effectively. This first version includes the following features:
+Fizbuzz is a lightweight and intuitive expense tracking application designed to help users manage their income and expenses effectively. This first version includes the following features:
 
 1. Core Features:
 
@@ -16,9 +16,9 @@ Is a lightweight and intuitive expense tracking application designed to help use
 3. Tech Stack:
 
 a) Frontend
-    i). [React](https://react.dev)
-    ii). [Tailwind CSS](https://tailwindcss.com)
-    iii). [Recharts](https://recharts.org/en-US)
+    1. [React](https://react.dev)
+    2. [Tailwind CSS](https://tailwindcss.com)
+    3. [Recharts](https://recharts.org/en-US)
 
 b) Backend
     i). [Node.js](https://nodejs.org/en)
