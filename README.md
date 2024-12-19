@@ -15,18 +15,18 @@ Fizbuzz is a lightweight and intuitive expense tracking application designed to 
 
 3. Tech Stack:
 
-a) Frontend
-    1. [React](https://react.dev)<br>
-    2. [Tailwind CSS](https://tailwindcss.com)
-    3. [Recharts](https://recharts.org/en-US)
+a) Frontend <br>
+    i). [React](https://react.dev)<br>
+    ii). [Tailwind CSS](https://tailwindcss.com)<br>
+    iii). [Recharts](https://recharts.org/en-US)<br>
 
-b) Backend
-    i). [Node.js](https://nodejs.org/en)
-    ii). [Express](https://expressjs.com)
-    iii). [Sequelize ORM](https://sequelize.org)
-    iv). [MySQL](https://www.mysql.com)
+b) Backend<br>
+    i). [Node.js](https://nodejs.org/en)<br>
+    ii). [Express](https://expressjs.com)<br>
+    iii). [Sequelize ORM](https://sequelize.org)<br>
+    iv). [MySQL](https://www.mysql.com)<br>
 
-c) State Management
+c) State Management<br>
     i). [Redux Toolkit](https://redux-toolkit.js.org/)
 
 Future Enhancements:
