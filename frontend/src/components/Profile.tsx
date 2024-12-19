@@ -65,10 +65,9 @@ export default function Profile() {
 
     return (
         <div>
+            <h5 className="mb-4 font-semibold text-lg">Hello {username}!</h5>
 
-            <h5 className="ml-12 mb-4 font-semibold text-lg">Hello {username}!</h5>
-
-            <form className="space-y-5 ml-12 mr-52" onSubmit={handleSubmit}>
+            <form className="space-y-5" onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                         Name

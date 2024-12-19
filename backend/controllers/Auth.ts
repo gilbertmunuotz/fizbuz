@@ -17,6 +17,15 @@ async function createUser(req: Request, res: Response, next: NextFunction): Prom
     // Destructure Request Body and explicitly type it
     const { name, email, password }: User = req.body;
 
+    // Extract IP address from the request
+    const userAgent = req.headers["user-agent"] || "unknown";
+    let ipAddress = req.headers["x-forwarded-for"] || req.socket.remoteAddress || "unknown";
+
+    // If x-forwarded-for is an array, use the first IP address in the list
+    if (Array.isArray(ipAddress)) {
+        ipAddress = ipAddress[0];
+    }
+
     // Check if User Exists
     try {
         const existingUser = await UserModel.findOne({ where: { email } });
@@ -30,7 +39,7 @@ async function createUser(req: Request, res: Response, next: NextFunction): Prom
         const hashedPassword = await bcrypt.hash(password, salt);
 
         // Create New User
-        const user = await UserModel.create({ name, email, password: hashedPassword });
+        const user = await UserModel.create({ name, email, password: hashedPassword, ipAddress, userAgent });
 
         res.status(HttpStatusCodes.CREATED).json({ message: 'User Registered successfully', user });
 
@@ -107,26 +116,33 @@ async function loginUser(req: Request, res: Response, next: NextFunction): Promi
 
 // (DESC) Controller Logic to Fetch Session Info
 async function getSessionInfo(req: Request, res: Response): Promise<void> {
+
+    // Extract if from req.params
+    const { id } = req.params;
+
+    // if no id
+    if (!id) {
+        res.status(HttpStatusCodes.BAD_REQUEST).json({ Status: "Error", Message: "Invalid Or No Id Found" });
+        return;
+    }
+
     try {
-        const userId = req.session.userId;
 
-        // Find the user from DB based on session data
-        const user = await UserModel.findByPk(userId);
+        // Check if user with that Given id Exists
+        const user = await UserModel.findAll({ where: { id: id }, order: [['updatedAt', 'DESC']] });
 
-        // If user is not found, return a 404 response
         if (!user) {
-            res.status(HttpStatusCodes.NOT_FOUND).json({
-                status: 'Error',
-                message: 'User not found for the current session',
+            res.status(HttpStatusCodes.NOT_FOUND).json({ Status: 'Error', Message: "User Not Found!" });
+            return;
+        } else {
+            // If user is found, return user data and session info
+            res.status(HttpStatusCodes.OK).json({
+                status: 'Success',
+                user,
+                sessionID: req.sessionID
             });
         }
 
-        // If user is found, return user data and session info
-        res.status(HttpStatusCodes.OK).json({
-            status: 'Success',
-            user,
-            sessionID: req.sessionID
-        });
 
     } catch (error) {
         console.error("Error fetching session info:", error);

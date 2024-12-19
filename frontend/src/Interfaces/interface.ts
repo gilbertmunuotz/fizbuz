@@ -74,4 +74,22 @@ interface UserResponse {
 }
 
 
-export type { ModalProps, Transaction, Credentials, UserInfo, LoginUserInfo, AuthState, AuthResponse, TransactionResponse, UserResponse };
+interface SessionInfo {
+    status: string,
+    user: {
+        id: number,
+        name: string,
+        email: string,
+        password: string,
+        otp: number,
+        otpExpiresAt: string,
+        ipAddress: string,
+        userAgent: string,
+        createdAt?: string,
+        updatedAt?: string
+    },
+    sessionID: string
+}
+
+
+export type { ModalProps, Transaction, Credentials, UserInfo, LoginUserInfo, AuthState, AuthResponse, TransactionResponse, UserResponse, SessionInfo };

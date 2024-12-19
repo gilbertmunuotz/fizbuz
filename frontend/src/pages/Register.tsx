@@ -28,7 +28,7 @@ export default function Register() {
             setName('');
             setEmail('');
             setPassword('');
-            toast.success("Registered Successfully");
+            toast.success("Login To Continue");
             navigate("/login");
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {

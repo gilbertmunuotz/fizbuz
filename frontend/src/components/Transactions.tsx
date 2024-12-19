@@ -28,8 +28,7 @@ export default function Transactions() {
 
     // Destructure RTK Hook
     const { data: transactions } = useGetTop3TransactionsQuery(userId);
-
-
+ 
     return (
         <div>
             <>
@@ -54,24 +53,29 @@ export default function Transactions() {
                         <NewForm open={modalOpen} close={handleClose} />
                     </div>
 
-                    <div className=" sm:ml-10">
+                    <div className="sm:ml-10">
                         <h4 className="text-2xl font-serif mt-4">History</h4>
-                        {/* Render your transaction history here */}
-                        <ul>
-                            {transactions?.transactions.map((transaction) => (
-                                <div key={transaction.id} className={`border-r-4 p-4 rounded shadow-sm mb-4 ${transaction.type === 'income' ? 'border-blue-500' : 'border-yellow-500'}`}>
-                                    <Card sx={{ my: 0, gap: 2, cursor: 'pointer' }}>
-                                        <CardContent sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                            <h3 className='font-semibold'>{transaction.name}</h3>
-                                            <h4 className='font-semibold'>${transaction.amount}</h4>
-                                        </CardContent>
-                                    </Card>
-                                </div>
-                            ))}
-                        </ul>
+                        {transactions?.transactions?.length ? (
+                            // Render your transaction history here
+                            <ul>
+                                {transactions?.transactions.map((transaction) => (
+                                    <div key={transaction.id} className={`border-r-4 p-4 rounded shadow-sm mb-4 ${transaction.type === 'income' ? 'border-blue-500' : 'border-yellow-500'}`}>
+                                        <Card sx={{ my: 0, gap: 2, cursor: 'pointer' }}>
+                                            <CardContent
+                                                sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', }}>
+                                                <h3 className="font-semibold">{transaction.name}</h3>
+                                                <h4 className="font-semibold">${transaction.amount}</h4>
+                                            </CardContent>
+                                        </Card>
+                                    </div>
+                                ))}
+                            </ul>
+                        ) : (
+                            <h6 className='text-lg'>No History found! 🙃</h6>
+                        )}
                     </div>
                 </div>
             </>
-        </div>
+        </div >
     )
 }
