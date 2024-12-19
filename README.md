@@ -1,4 +1,5 @@
-Fizbuzz is a lightweight and intuitive expense tracking application designed to help users manage their income and expenses effectively. This first version includes the following features:
+## Fizbuzz 
+Is a lightweight and intuitive expense tracking application designed to help users manage their income and expenses effectively. This first version includes the following features:
 
 1. Core Features:
 
