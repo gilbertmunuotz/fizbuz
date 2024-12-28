@@ -20,11 +20,6 @@ const authSlice = createSlice({
             state.user = action.payload.user;
             state.sessionID = action.payload.sessionID;
         },
-        updateProfileSuccess: (state, action) => {
-            if (state.user) {
-                state.user = { ...state.user, ...action.payload };
-            }
-        },
         logoutSuccess: (state) => {
             state.isUserAuth = false;
             state.user = null;
@@ -34,7 +29,7 @@ const authSlice = createSlice({
 })
 
 // Export Action
-export const { loginSuccess, updateProfileSuccess, logoutSuccess } = authSlice.actions;
+export const { loginSuccess, logoutSuccess } = authSlice.actions;
 
 
 // Selector functions to access user information

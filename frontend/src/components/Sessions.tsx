@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { user } from "../assets/authSlice";
 import { formatDate } from "../utilities/DateFunc";
@@ -16,12 +15,8 @@ export default function Sessions() {
     const { data, isError } = useUseSessionsQuery(userId);
 
 
-    // Render data on page Load
-    useEffect(() => {
-        if (data) {
-            console.log(data);
-        }
-    }, [data])
+    // Extract the first session object safely
+    const session = data?.user?.[0];
 
     return (
         <div>
@@ -31,7 +26,7 @@ export default function Sessions() {
 
             {isError && <p className="text-red-500">Error fetching sessions. Please try again later.</p>}
 
-            {data && (
+            {session ? (
                 <div className="space-y-4">
                     <div className="bg-gray-100 p-4 rounded-lg border">
                         <div className="flex items-center justify-between">
@@ -39,13 +34,15 @@ export default function Sessions() {
                                 <p className="text-sm text-gray-500">Your current session</p>
                                 <div className="flex justify-between">
                                     <span className="text-green-500">● Active</span>
-                                    <h2 className="font-semibold text-gray-800">{data.user.ipAddress}</h2>
+                                    <h2 className="font-semibold text-gray-800">{session.ipAddress}</h2>
                                 </div>
-                                <p className="text-sm text-gray-500">Last Seen on: {formatDate(data.user.updatedAt ?? '')}</p>
+                                <p className="text-sm text-gray-500">Last Seen: {formatDate(session.updatedAt!)}</p>
                             </div>
                         </div>
                     </div>
                 </div>
+            ) : (
+                <p className="text-gray-500">No active sessions found.</p>
             )}
 
         </div>
