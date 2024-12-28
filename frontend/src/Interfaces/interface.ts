@@ -5,7 +5,7 @@ interface ModalProps {
 
 
 interface Transaction {
-    id: number,
+    id?: number,
     userId: number,
     name: string,
     amount: string,
@@ -76,7 +76,7 @@ interface UserResponse {
 
 interface SessionInfo {
     status: string,
-    user: {
+    user: Array<{
         id: number,
         name: string,
         email: string,
@@ -87,7 +87,7 @@ interface SessionInfo {
         userAgent: string,
         createdAt?: string,
         updatedAt?: string
-    },
+    }>,
     sessionID: string
 }
 

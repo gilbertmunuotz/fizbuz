@@ -1,14 +1,13 @@
 import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { AuthResponse } from "../Interfaces/interface";
-import { updateProfileSuccess, user } from "../assets/authSlice";
+import { user } from "../assets/authSlice";
 import { useGetUserInfoQuery, useUpdateUserMutation } from "../api/UserSlice";
 
 
 export default function Profile() {
 
-    const dispatch = useDispatch();
 
     // Extract User Name from User Slice to display on UI
     const userInfo = useSelector(user) as AuthResponse;
@@ -23,11 +22,11 @@ export default function Profile() {
     const [password, setPassword] = useState("");
 
     // use rtk hook to Get user Data
-    const { data, refetch } = useGetUserInfoQuery(userId);
+    const { data } = useGetUserInfoQuery(userId);
 
     // Render Data on Page Load
     useEffect(() => {
-        if (data) {
+        if (data?.user) {
             setName(data.user.name);
             setEmail(data.user.email);
         }
@@ -42,18 +41,7 @@ export default function Profile() {
 
         try {
             // Make the API call and get the updated user data
-            const updatedUser = await update({ id: userId, name, email, password }).unwrap();
-            // Dispatch the updated user data to the Redux store
-            dispatch(updateProfileSuccess(updatedUser));
-
-            // Refetch the updated user data from the server to reflect the changes
-            const updatedData = await refetch(); // Ensure the updated data is fetched
-
-            // Update local state with the latest data
-            if (updatedData?.data) {
-                setName(updatedData.data.user.name);
-                setEmail(updatedData.data.user.email);
-            }
+            await update({ id: userId, name, email, password }).unwrap();
 
             setPassword("");
             toast.success("Profile updated successfully!");
@@ -65,7 +53,7 @@ export default function Profile() {
 
     return (
         <div>
-            <h5 className="mb-4 font-semibold text-lg">Hello {username}!</h5>
+            <h5 className="mb-4 font-semibold text-lg">Hello {data?.user.name || username}!</h5>
 
             <form className="space-y-5" onSubmit={handleSubmit}>
                 <div>

@@ -55,7 +55,7 @@ export default function Transaction() {
                                     </p>
                                 </div>
 
-                                <button onClick={() => handleDelete(transaction.id)}> <DeleteIcon sx={{ cursor: 'pointer', color: 'red' }} /></button>
+                                <button onClick={() => handleDelete(transaction.id!)}> <DeleteIcon sx={{ cursor: 'pointer', color: 'red' }} /></button>
                             </div>
                         ))
                     ) : (
