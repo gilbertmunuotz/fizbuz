@@ -22,7 +22,8 @@
     "react-toastify": "^10.0.6",
     "recharts": "^2.12.7",
     "redux-persist": "^6.0.0",
-    "typewriter-effect": "^2.21.0"
+    "typewriter-effect": "^2.21.0",
+    "ua-parser-js": "^2.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
