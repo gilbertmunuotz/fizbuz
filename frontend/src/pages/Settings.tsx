@@ -10,7 +10,7 @@ export default function Settings() {
             {/* Add responsive padding to the main content to offset the DrawerNav on larger screens */}
             <div className="lg:ml-64 p-6">
                 {/* Responsive container */}
-                <div className="flex flex-col lg:flex-row lg:gap-10 lg:items-stretch">
+                <div className="flex flex-col lg:flex-row lg:gap-6 lg:items-stretch">
                     {/* Profile component, full width on mobile, three-quarters on larger screens */}
                     <div className="w-full lg:w-3/4">
                         <Profile />
