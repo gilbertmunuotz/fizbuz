@@ -90,6 +90,7 @@ export default function Register() {
                                 required
                                 id="password"
                                 name="password"
+                                type="password"
                                 value={password}
                                 placeholder="E.g john@4545."
                                 onChange={(event) => setPassword(event.target.value)}
