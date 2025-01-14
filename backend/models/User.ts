@@ -7,8 +7,8 @@ export interface UserAttributes {
     name: string;
     email: string;
     password: string;
-    otp?: string;
-    otpExpiresAt?: string;
+    otp?: number;
+    otpExpiresAt?: number;
     ipAddress?: string;
     userAgent?: string;
 }
@@ -22,8 +22,8 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
     public name!: string;
     public email!: string;
     public password!: string;
-    public otp?: string;
-    public otpExpiresAt?: string;
+    public otp?: number;
+    public otpExpiresAt?: number;
     public ipAddress?: string;
     public userAgent?: string;
 
@@ -53,11 +53,11 @@ User.init(
             allowNull: false,
         },
         otp: {
-            type: DataTypes.STRING(6),
+            type: DataTypes.NUMBER,
             allowNull: true,
         },
         otpExpiresAt: {
-            type: DataTypes.STRING,
+            type: DataTypes.NUMBER,
             allowNull: true,
         },
         ipAddress: {

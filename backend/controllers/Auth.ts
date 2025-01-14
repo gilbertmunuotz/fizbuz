@@ -3,6 +3,7 @@ import HttpStatusCodes from "../constants/HttpStatusCodes";
 import UserModel, { UserAttributes } from '../models/User';
 import bcrypt from "bcrypt";
 import { User } from '../constants/Interfaces';
+import { sendMail } from "../utilities/Nodemailer";
 
 // Extend the Express.Session interface
 declare module 'express-session' {
@@ -153,6 +154,40 @@ async function getSessionInfo(req: Request, res: Response): Promise<void> {
     }
 }
 
+//(DESC) Check E-mail & Send OTP to User
+async function GenerateOTP(req: Request, res: Response, next: NextFunction) {
+
+    // Destructure Req.body
+    const { email } = req.body;
+
+    try {
+        const user = await UserModel.findOne({ where: { email } });
+
+        if (!user) {
+            res.status(HttpStatusCodes.NOT_FOUND).json({ status: "Error", Message: "User Not Found!" });
+            return;
+        }
+
+        // Generate a 6-digit OTP
+        const otp = Math.floor(100000 + Math.random() * 900000);
+
+        // Update the user document with the new OTP and expiry
+        user.otp = otp;
+        user.otpExpiresAt = Date.now() + 10 * 60 * 1000// 10 minutes expiry
+
+        // Save the updated user document
+        await user.save();
+
+        // Send OTP email to the user
+        await sendMail(email, otp);
+
+        res.status(HttpStatusCodes.OK).json({ status: 'Success', Message: 'OTP Sent to Your Email' });
+
+    } catch (error) {
+        console.error('Error in ResetPassword:', error);
+        res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({ status: 'Error', Message: 'Failed to process password reset OTP.' });
+    }
+}
 
 // (DESC) Logout User
 async function logoutUser(req: Request, res: Response, next: NextFunction) {
@@ -171,4 +206,4 @@ async function logoutUser(req: Request, res: Response, next: NextFunction) {
 }
 
 
-export { createUser, loginUser, getSessionInfo, logoutUser };
+export { createUser, loginUser, getSessionInfo, GenerateOTP, logoutUser };
