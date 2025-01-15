@@ -30,7 +30,7 @@ Fizbuz is a lightweight and intuitive expense tracking application designed to h
     i). [Redux Toolkit](https://redux-toolkit.js.org/)
 
     ## Future Enhancements:<br>
-      a). Advanced data visualizations (e.g., category-wise breakdowns).
+      a). Advanced data visualizations (e.g., category-wise breakdowns). <br>
       b). Export transactions to CSV or PDF.
 
     ## 🙌 Contribution
