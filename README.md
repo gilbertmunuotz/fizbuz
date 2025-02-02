@@ -32,17 +32,17 @@ Fizbuz is a lightweight and intuitive expense tracking application designed to h
    c) State Management<br>
    i). [Redux Toolkit](https://redux-toolkit.js.org/)
 
-   ## Future Enhancements:<br>
+4. ## Future Enhancements:<br>
 
-   a). Advanced data visualizations (e.g., category-wise breakdowns). <br>
-   b). Export transactions to CSV or PDF.
+a). Advanced data visualizations (e.g., category-wise breakdowns). <br>
+b). Export transactions to CSV or PDF.
 
-4. ## 🙌 Contribution
+5. ## 🙌 Contribution
 
 Contributions are always welcome! To contribute, please follow these steps:
 
-1. Fork the repository.
-2. Create a new branch with a descriptive name.
-3. Make your changes, and commit them.
-4. Push your changes to the forked repository.
-5. Create a pull request, and we'll review your changes.
+i). Fork the repository.
+ii). Create a new branch with a descriptive name.
+iii). Make your changes, and commit them.
+iv). Push your changes to the forked repository.
+v). Create a pull request, and we'll review your changes.
