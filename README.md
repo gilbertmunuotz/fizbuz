@@ -41,8 +41,8 @@ b). Export transactions to CSV or PDF.
 
 Contributions are always welcome! To contribute, please follow these steps:
 
-i). Fork the repository.
-ii). Create a new branch with a descriptive name.
-iii). Make your changes, and commit them.
-iv). Push your changes to the forked repository.
-v). Create a pull request, and we'll review your changes.
+i). Fork the repository.<br>
+ii). Create a new branch with a descriptive name.<br>
+iii). Make your changes, and commit them.<br>
+iv). Push your changes to the forked repository.<br>
+v). Create a pull request, and I'll review your changes.<br>
