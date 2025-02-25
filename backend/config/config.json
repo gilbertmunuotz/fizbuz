@@ -1,9 +1,0 @@
-{
-    "development": {
-        "username": "root",
-        "password": "MyPassword@2166",
-        "database": "fizbuzz",
-        "host": "localhost",
-        "dialect": "mysql"
-    }
-}
