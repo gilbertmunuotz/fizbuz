@@ -4,12 +4,12 @@ Fizbuz is a lightweight and intuitive expense tracking application designed to h
 
 1. ## Core Features:<br>
 
-   a) Visualize daily income and expense trends using Recharts.
+   a) Visualize daily income and expense trends using Recharts.<br>
    b) Automatic monthly summaries with the ability to filter and view previous months' data.
 
 2. ## User Interface:<br>
 
-   a) Clean and responsive design powered by Tailwind CSS.
+   a) Clean and responsive design powered by Tailwind CSS.<br>
    b) Distinct color-coded transaction types for clear categorization:
    Blue: Income
    Yellow: Expense

@@ -28,7 +28,6 @@ export default function Chart() {
 
     // Destructure RTK Hook
     const { data: transactions } = useGetTop3TransactionsQuery(userId);
-    console.log("Transaction", transactions);
 
     // Ensure data exists before rendering
     const chartData = transactions?.transactions.map((transaction: Transaction) => ({
