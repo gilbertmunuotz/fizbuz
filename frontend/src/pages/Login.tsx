@@ -115,7 +115,7 @@ export default function Login() {
 
                         <div className="flex justify-between">
                             <h2 className='ml-2'>Don't have an account?<Link to={"/register"} className='text-sky-600'> Register</Link></h2>
-                            <h3 className="ml-2"><Link to={"/forgot-password"} className='text-sky-600'> forgot Password</Link></h3>
+                            {/* <h3 className="ml-2"><Link to={"/forgot-password"} className='text-sky-600'> forgot Password</Link></h3> */}
                         </div>
 
                     </form>
