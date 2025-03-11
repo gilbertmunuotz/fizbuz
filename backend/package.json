@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "nodemon --watch ./ --watch server.ts --exec \"node --loader ts-node/esm --experimental-specifier-resolution=node server.ts\" --verbose",
-    "start": ""
+    "type-check": "npx tsc --noEmit"
   },
   "nodemonconfig": {
     "watch": [
