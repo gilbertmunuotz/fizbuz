@@ -19,7 +19,7 @@ const Transaction = sequelize.define('transactions', {
     allowNull: false
   },
   userId: {
-    type: DataTypes.BIGINT.UNSIGNED,
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
     references: {
       model: 'users', // refers to table name 'users'
