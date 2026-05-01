@@ -37,7 +37,7 @@ Fizbuz is a lightweight and intuitive expense tracking application designed to h
    a). Advanced data visualizations (e.g., category-wise breakdowns). <br>
    b). Export transactions to CSV or PDF.
 
-5. ## 🙌 Contribution
+5. ## Contribution
 
    Contributions are always welcome! To contribute, please follow these steps:
 
